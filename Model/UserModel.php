@@ -75,17 +75,6 @@ class UserModel extends Repository{
         catch(PDOException $e){
 
         }
-        //$time = file_get_contents("exist.txt");
-        /*if($time > time()){
-            if($this->randomString === $cookieValue){
-                $_SESSION["ValidLogin"] = $this->username;
-                $_SESSION["UserAgent"] = $userAgent;
-                return $this->authenticatedUser = true;
-            }
-            else{
-                return $this->authenticatedUser = false;
-            }
-        }*/
     }
 
     //Sparar tiden när kakan skapades i databasen.

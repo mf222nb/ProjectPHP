@@ -23,22 +23,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ForumController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/ForumController.php">
+      <file leaf-file-name="ThreadView.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/View/ThreadView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="54" selection-start="1160" selection-end="1160" vertical-scroll-proportion="-13.538462" vertical-offset="294" max-vertical-offset="850">
-              <folding />
+            <state line="17" column="8" selection-start="364" selection-end="436" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="459">
+              <folding>
+                <element signature="e#6#88#0" expanded="true" />
+                <marker date="1412854805126" expanded="true" signature="217:353" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThreadView.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/View/ThreadView.php">
+      <file leaf-file-name="ThreadRepository.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Model/ThreadRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="8" selection-start="364" selection-end="436" vertical-scroll-proportion="0.51978415" vertical-offset="0" max-vertical-offset="556">
+            <state line="17" column="5" selection-start="388" selection-end="388" vertical-scroll-proportion="0.51978415" vertical-offset="0" max-vertical-offset="556">
               <folding>
                 <element signature="e#6#88#0" expanded="true" />
-                <marker date="1412854805126" expanded="true" signature="217:353" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -56,10 +58,10 @@
       <file leaf-file-name="UserModel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model/UserModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="36" selection-start="1928" selection-end="1928" vertical-scroll-proportion="-13.538462" vertical-offset="651" max-vertical-offset="3859">
+            <state line="17" column="46" selection-start="581" selection-end="581" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="3672">
               <folding>
-                <marker date="1412845907269" expanded="true" signature="1668:1702" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-                <marker date="1412845907269" expanded="true" signature="3036:3061" placeholder="UPDATE $this..." />
+                <marker date="1412856600509" expanded="true" signature="1668:1702" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+                <marker date="1412856600509" expanded="true" signature="2619:2644" placeholder="UPDATE $this..." />
               </folding>
             </state>
           </provider>
@@ -146,12 +148,13 @@
         <option value="$PROJECT_DIR$/Controller/RegisterController.php" />
         <option value="$PROJECT_DIR$/View/RegisterUserView.php" />
         <option value="$PROJECT_DIR$/View/CookieView.php" />
-        <option value="$PROJECT_DIR$/Model/UserModel.php" />
         <option value="$PROJECT_DIR$/View/LoginView.php" />
         <option value="$PROJECT_DIR$/Controller/LoginController.php" />
         <option value="$PROJECT_DIR$/View/ForumView.php" />
         <option value="$PROJECT_DIR$/Controller/ForumController.php" />
         <option value="$PROJECT_DIR$/View/ThreadView.php" />
+        <option value="$PROJECT_DIR$/Model/UserModel.php" />
+        <option value="$PROJECT_DIR$/Model/ThreadRepository.php" />
       </list>
     </option>
   </component>
@@ -311,7 +314,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1234" height="736" extended-state="7" />
+    <frame x="54" y="-8" width="1234" height="736" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -378,8 +381,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="147" column="58" selection-start="5519" selection-end="5519" vertical-scroll-proportion="0.0" vertical-offset="2499" max-vertical-offset="3247">
           <folding>
-            <marker date="1412845907269" expanded="true" signature="1668:1702" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-            <marker date="1412845907269" expanded="true" signature="3036:3061" placeholder="UPDATE $this..." />
+            <marker date="1412856600509" expanded="true" signature="1668:1702" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+            <marker date="1412856600509" expanded="true" signature="2619:2644" placeholder="UPDATE $this..." />
           </folding>
         </state>
       </provider>
@@ -492,16 +495,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/UserModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="36" selection-start="1928" selection-end="1928" vertical-scroll-proportion="-13.538462" vertical-offset="651" max-vertical-offset="3859">
-          <folding>
-            <marker date="1412845907269" expanded="true" signature="1668:1702" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-            <marker date="1412845907269" expanded="true" signature="3036:3061" placeholder="UPDATE $this..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/View/NavigationView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="30" selection-start="419" selection-end="419" vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="493">
@@ -541,10 +534,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/View/ThreadView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="8" selection-start="364" selection-end="436" vertical-scroll-proportion="0.51978415" vertical-offset="0" max-vertical-offset="556">
+        <state line="17" column="8" selection-start="364" selection-end="436" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="459">
           <folding>
             <element signature="e#6#88#0" expanded="true" />
             <marker date="1412854805126" expanded="true" signature="217:353" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/UserModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="46" selection-start="581" selection-end="581" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="3672">
+          <folding>
+            <marker date="1412856600509" expanded="true" signature="1668:1702" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+            <marker date="1412856600509" expanded="true" signature="2619:2644" placeholder="UPDATE $this..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ThreadRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="5" selection-start="388" selection-end="388" vertical-scroll-proportion="0.51978415" vertical-offset="0" max-vertical-offset="556">
+          <folding>
+            <element signature="e#6#88#0" expanded="true" />
           </folding>
         </state>
       </provider>
