@@ -2,7 +2,6 @@
 
 require_once('./View/LoginView.php');
 require_once('./Model/UserModel.php');
-require_once('./View/LoggedinView.php');
 require_once('./View/ForumView.php');
 require_once('./View/CookieView.php');
 require_once('./Helpers/ServiceHelper.php');
@@ -11,7 +10,6 @@ require_once('./View/NavigationView.php');
 class LoginController{
     private $loginView;
     private $userModel;
-    private $loggedInView;
     private $cookieView;
     private $serviceHelper;
     private $navigationView;
@@ -20,7 +18,6 @@ class LoginController{
     public function __construct(UserModel $userModel){
         $this->loginView = new LoginView();
         $this->userModel = $userModel;
-        $this->loggedInView = new LoggedInView();
         $this->cookieView = new CookieStorage();
         $this->serviceHelper = new ServiceHelper();
         $this->navigationView = new NavigationView();
@@ -45,15 +42,16 @@ class LoginController{
             }
             else {
                 if($this->loginView->wantCookie()){
-                    $randomString = $this->userModel->getRandomString();
-                    $time = $this->cookieView->save($randomString);
-                    $this->userModel->saveCookieTime($time);
+                    $username = $this->userModel->getUsername();
+                    $password = $this->userModel->getPassword();
+                    $time = $this->cookieView->save($username, $password);
+                    $this->userModel->saveCookieTime($time, $username);
                     $message = $this->cookieView->cookieSaveMessage();
-                    $this->loggedInView->setMessage($message);
+                    $this->forumView->setMessage($message);
                 }
                 else{
                     $message = $this->loginView->LogInSuccessMessage();
-                    $this->loggedInView->setMessage($message);
+                    $this->forumView->setMessage($message);
                 }
             }
         }
@@ -66,9 +64,11 @@ class LoginController{
         if($authenticated === false){
             if($this->cookieView->loadCookie()){
                 $cookieValue = $this->cookieView->cookieExist();
-                if($this->userModel->controlCookieValue($cookieValue, $userAgent)){
+                $username = $cookieValue['Username'];
+                $password = $cookieValue['Password'];
+                if($this->userModel->controlCookieValue($username, $password, $userAgent)){
                     $message = $this->cookieView->cookieLoadMessage();
-                    $this->loggedInView->setMessage($message);
+                    $this->forumView->setMessage($message);
                 }
                 else{
                     $this->cookieView->deleteCookie();
@@ -82,11 +82,10 @@ class LoginController{
         finns på klienten tillsammans med sessionen och man får ett meddelande att man har loggat ut. */
         $authenticated = $this->userModel->getAuthenticatedUser($userAgent);
         if($authenticated === true){
-            //$userLogOut = $this->loggedInView->userPressedLogOut();
             $userLogOut = $this->forumView->userPressedLogOut();
             if($userLogOut === true){
                 $this->cookieView->deleteCookie();
-                $message = $this->loggedInView->logOutSuccessMessage();
+                $message = $this->loginView->logOutSuccessMessage();
                 $this->loginView->setMessage($message);
                 $this->userModel->LogOut();
             }
@@ -97,13 +96,12 @@ class LoginController{
 
         $signOutUrl = $this->navigationView->getLoggedOutUrl();
         $username = $this->userModel->getUsername();
-        $loggedInView = $this->forumView->loggedInForumView($signOutUrl, $username);
-        //$loggedInView = $this->loggedInView->LoggedInView();
+        $forumView = $this->forumView->loggedInForumView($signOutUrl, $username);
         $authenticated = $this->userModel->getAuthenticatedUser($userAgent);
 
         if($authenticated === true){
             //Returnerar den inloggade vyn.
-            return $loggedInView;
+            return $forumView;
         }
         else{
             //Returnerar den icke inloggade vyn.

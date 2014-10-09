@@ -1,34 +1,39 @@
 <?php
 
 class CookieStorage{
-    private $cookieName = "CookieStorage";
+    private $cookieName = "Username";
+    private $cookieName2 = "Password";
     private $message;
     private $cookieTime;
 
     //Sparar ner värdet från $randomString till kakan.
-    public function save($string){
+    public function save($string, $password){
         $this->cookieTime = time()+120;
         setcookie($this->cookieName, $string, $this->cookieTime);
+        setcookie($this->cookieName2, $password, $this->cookieTime);
         return $this->cookieTime;
     }
 
     //Tar bort kakan när man loggar ut eller när tiden har gått ut.
     public function deleteCookie(){
         setcookie($this->cookieName, "", time() - 1);
+        setcookie($this->cookieName2, "", time() - 1);
     }
 
     //Tittar om kakan finns.
     public function loadCookie(){
-        if(isset($_COOKIE[$this->cookieName])){
+        if(isset($_COOKIE[$this->cookieName]) && isset($_COOKIE[$this->cookieName2])){
             return true;
         }
+        return false;
     }
 
     //Tittar om kakan redan existerar och i sådana fall så returnerar vi kakans värde.
     public function cookieExist(){
-        if(isset($_COOKIE[$this->cookieName])){
-            return $_COOKIE[$this->cookieName];
+        if(isset($_COOKIE[$this->cookieName]) && isset($_COOKIE[$this->cookieName2])){
+            return array('Username' => $_COOKIE[$this->cookieName], 'Password' => $_COOKIE[$this->cookieName2]);
         }
+        return false;
     }
 
     //Meddelanden

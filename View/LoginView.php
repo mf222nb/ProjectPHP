@@ -61,6 +61,10 @@ class LoginView{
         return $this->message = "Inloggning lyckades";
     }
 
+    public function logOutSuccessMessage(){
+        return $this->message = "Du har nu loggat ut";
+    }
+
     public function setMessage($message){
         $this->message = $message;
     }

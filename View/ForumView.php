@@ -27,6 +27,8 @@ class ForumView{
     public function loggedInForumView($signOutUrl, $username){
         $ret = "
         <h3>$username is logged in</h3>
+        <p>$this->message</p>
+        <a href='?thread'>New thread</a>
         <a href='$signOutUrl'>Log Out</a>";
 
         return $ret;
@@ -46,6 +48,13 @@ class ForumView{
         return false;
     }
 
+    public function UserPressedNewThread(){
+        if(isset($_GET['thread'])){
+            return true;
+        }
+        return false;
+    }
+
     public function userPressedLogOut(){
         if($this->navigationView->isSignedOut()){
             return true;
@@ -55,5 +64,9 @@ class ForumView{
 
     public function userAddedToDataBaseMessage(){
         $this->message = "Register of new user was successfull";
+    }
+
+    public function setMessage($message){
+        $this->message = $message;
     }
 }

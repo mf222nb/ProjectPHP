@@ -47,9 +47,36 @@ class UserModel extends Repository{
     }
 
     //Kontrollerar om kakans värde stämmer överens med randomsStrings värde.
-    public function controlCookieValue($cookieValue, $userAgent){
-        $time = file_get_contents("exist.txt");
-        if($time > time()){
+    public function controlCookieValue($username, $password, $userAgent){
+        try{
+            $sql = "SELECT * FROM $this->dbTable WHERE ".self::$name." = ?";
+            $params = array($username);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+
+            $result = $query->fetch();
+
+            $time = $result['Cookietime'];
+            $name = $result['Username'];
+            $pass = $result['Password'];
+
+            if($time > time()){
+                if($name === $username && $pass === $password){
+                    $_SESSION["ValidLogin"] = $username;
+                    $_SESSION["UserAgent"] = $userAgent;
+                    return $this->authenticatedUser = true;
+                }
+                else{
+                    return $this->authenticatedUser = false;
+                }
+            }
+        }
+        catch(PDOException $e){
+
+        }
+        //$time = file_get_contents("exist.txt");
+        /*if($time > time()){
             if($this->randomString === $cookieValue){
                 $_SESSION["ValidLogin"] = $this->username;
                 $_SESSION["UserAgent"] = $userAgent;
@@ -58,12 +85,21 @@ class UserModel extends Repository{
             else{
                 return $this->authenticatedUser = false;
             }
-        }
+        }*/
     }
 
-    //Sparar tiden när kakan skapades i en fil.
-    public function saveCookieTime($time){
-        file_put_contents("exist.txt", $time);
+    //Sparar tiden när kakan skapades i databasen.
+    public function saveCookieTime($time, $username){
+        try{
+            $sql = "UPDATE $this->dbTable SET ".self::$cookieTime." = ? WHERE ".self::$name." = ?";
+            $params = array($time, $username);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+        }
+        catch(PDOException $e){
+            die("Ett oväntat fel har uppstått");
+        }
     }
 
     public function getUsername(){
