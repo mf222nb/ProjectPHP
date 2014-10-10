@@ -20,6 +20,10 @@ class NavigationView{
         return $url = "?login&signout";
     }
 
+    public function getLoginUrl(){
+        return $url = "?login";
+    }
+
     public function isSignedOut(){
         if(isset($_GET['signout'])){
             return true;
