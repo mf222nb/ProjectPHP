@@ -5,7 +5,7 @@
  * Date: 2014-10-06
  * Time: 13:25
  */
-require_once('NavigationView.php');
+require_once("NavigationView.php");
 
 class ForumView{
     private $navigationView;
@@ -15,21 +15,32 @@ class ForumView{
         $this->navigationView = new NavigationView();
     }
 
-    public function forumView(){
+    public function forumView($threads){
+        $html = "";
+        foreach($threads as $thread){
+            $html .= "<div><a href='?". $thread->getThreadId()."'>". $thread->getThreadName()." ". $thread->getUser() ."</a></div>";
+        }
         $ret = "
         <p>$this->message</p>
         <a href='?login'>Login</a>
-        <a href='?register'>Register User</a>";
+        <a href='?register'>Register User</a>
+        <p>$html</p>
+        ";
 
         return $ret;
     }
 
-    public function loggedInForumView($signOutUrl, $username){
+    public function loggedInForumView($signOutUrl, $username, $threads){
+        $html = "";
+        foreach($threads as $thread){
+            $html .= "<div><a href='?". $thread->getThreadId()."'>". $thread->getThreadName()." ". $thread->getUser() ."</a></div>";
+        }
         $ret = "
         <h3>$username is logged in</h3>
         <p>$this->message</p>
         <a href='?thread'>New thread</a>
-        <a href='$signOutUrl'>Log Out</a>";
+        <a href='$signOutUrl'>Log Out</a>
+        <p>$html</p>";
 
         return $ret;
     }

@@ -6,17 +6,22 @@
  * Time: 14:08
  */
 
+require_once("Thread.php");
+
 class ThreadRepository extends Repository{
     private $db;
     private static $name = 'ThreadName';
     private static $user = 'User';
 
     private $idArray;
+    private $threadList;
+    private $thread;
 
     public function __construct(){
         $this->db = $this->connection();
         $this -> dbTable = 'thread';
         $this->idArray = array();
+        $this->threadList = array();
     }
 
     public function addThread(Thread $thread){
@@ -51,6 +56,32 @@ class ThreadRepository extends Repository{
             $id = end($this->idArray);
 
             return $id;
+        }
+        catch(PDOException $e){
+            var_dump($e->getMessage());
+        }
+    }
+
+    public function getAllThreads(){
+        try{
+            $sql = "SELECT * FROM $this->dbTable";
+
+            $query = $this->db->prepare($sql);
+            $query->execute();
+
+            $result = $query->fetchAll();
+
+            foreach($result as $thread){
+                $threadId = $thread['ThreadId'];
+                $threadName = $thread['ThreadName'];
+                $user = $thread['User'];
+
+                $threads = new Thread($threadName, $user, $threadId);
+
+                $this->threadList[] = $threads;
+            }
+
+            return $this->threadList;
         }
         catch(PDOException $e){
             var_dump($e->getMessage());

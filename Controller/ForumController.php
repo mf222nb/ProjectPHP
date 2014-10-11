@@ -53,6 +53,7 @@ class ForumController{
 
         //Användare trycker på create new thread så ska tråden sparas i en databas i en tabell och det man skriver in i
         //textrutan ska sparas till en annan tabell.
+        $threads = $this->threadRepository->getAllThreads();
         if($this->threadView->userPressedCreate()){
             $this->threadView->getThreadInfromation();
             $threadName = $this->threadView->getThreadName();
@@ -66,10 +67,10 @@ class ForumController{
             $this->postRepository->addPost($post);
 
             $signOutUrl = $this->navigationView->getLoggedOutUrl();
-            return $this->forumView->loggedInForumView($signOutUrl, $username);
+            return $this->forumView->loggedInForumView($signOutUrl, $username, $threads);
         }
 
-        return $this->forumView->forumView();
+        return $this->forumView->forumView($threads);
 
     }
 }

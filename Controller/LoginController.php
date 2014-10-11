@@ -2,6 +2,7 @@
 
 require_once('./View/LoginView.php');
 require_once('./Model/UserModel.php');
+require_once('./Model/ThreadRepository.php');
 require_once('./View/ForumView.php');
 require_once('./View/CookieView.php');
 require_once('./Helpers/ServiceHelper.php');
@@ -10,6 +11,7 @@ require_once('./View/NavigationView.php');
 class LoginController{
     private $loginView;
     private $userModel;
+    private $threadRepository;
     private $cookieView;
     private $serviceHelper;
     private $navigationView;
@@ -18,6 +20,7 @@ class LoginController{
     public function __construct(UserModel $userModel){
         $this->loginView = new LoginView();
         $this->userModel = $userModel;
+        $this->threadRepository = new ThreadRepository();
         $this->cookieView = new CookieStorage();
         $this->serviceHelper = new ServiceHelper();
         $this->navigationView = new NavigationView();
@@ -96,7 +99,8 @@ class LoginController{
 
         $signOutUrl = $this->navigationView->getLoggedOutUrl();
         $username = $this->userModel->getUsername();
-        $forumView = $this->forumView->loggedInForumView($signOutUrl, $username);
+        $threads = $this->threadRepository->getAllThreads();
+        $forumView = $this->forumView->loggedInForumView($signOutUrl, $username, $threads);
         $authenticated = $this->userModel->getAuthenticatedUser($userAgent);
 
         if($authenticated === true){
