@@ -18,7 +18,7 @@ class ForumView{
     public function forumView($threads){
         $html = "";
         foreach($threads as $thread){
-            $html .= "<div><a href='?". $thread->getThreadId()."'>". $thread->getThreadName()." ". $thread->getUser() ."</a></div>";
+            $html .= "<div><a href='?thread_number=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
         }
         $ret = "
         <p>$this->message</p>
@@ -33,13 +33,27 @@ class ForumView{
     public function loggedInForumView($signOutUrl, $username, $threads){
         $html = "";
         foreach($threads as $thread){
-            $html .= "<div><a href='?". $thread->getThreadId()."'>". $thread->getThreadName()." ". $thread->getUser() ."</a></div>";
+            $html .= "<div><a href='?thread_number=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
         }
         $ret = "
         <h3>$username is logged in</h3>
         <p>$this->message</p>
         <a href='?thread'>New thread</a>
         <a href='$signOutUrl'>Log Out</a>
+        <p>$html</p>";
+
+        return $ret;
+    }
+
+    public function showThreadPosts($posts, $url){
+        $html = "";
+        foreach($posts as $post){
+            $id = $post->getThreadId();
+            $html .= "<div>". $post->getContent() ." " . $post->getUser() . "</div>";
+        }
+        $ret = "
+        <a href='$url'>Back</a>
+        <a href='?create_post=$id'>Create new post</a>
         <p>$html</p>";
 
         return $ret;
@@ -66,6 +80,20 @@ class ForumView{
         return false;
     }
 
+    public function userPressedThread(){
+        if(isset($_GET['thread_number'])){
+            return true;
+        }
+        return false;
+    }
+
+    public function userPressedCreatePost(){
+        if(isset($_GET['create_post'])){
+            return true;
+        }
+        return false;
+    }
+
     public function userPressedLogOut(){
         if($this->navigationView->isSignedOut()){
             return true;
@@ -79,5 +107,17 @@ class ForumView{
 
     public function setMessage($message){
         $this->message = $message;
+    }
+
+    public function getUrl(){
+        $request_path = $_SERVER['REQUEST_URI'];
+        $path = explode("/", $request_path); // splitting the path
+        $last = end($path);
+        return $last;
+    }
+
+    public function getThreadId($string){
+        $end = preg_replace("/[^0-9]/", "", $string);
+        return $end;
     }
 }

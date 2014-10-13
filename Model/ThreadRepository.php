@@ -15,7 +15,6 @@ class ThreadRepository extends Repository{
 
     private $idArray;
     private $threadList;
-    private $thread;
 
     public function __construct(){
         $this->db = $this->connection();

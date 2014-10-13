@@ -70,7 +70,15 @@ class ForumController{
             return $this->forumView->loggedInForumView($signOutUrl, $username, $threads);
         }
 
-        return $this->forumView->forumView($threads);
+        if($this->forumView->userPressedThread()){
+            $urlPath = $this->forumView->getUrl();
+            $id = $this->forumView->getThreadId($urlPath);
+            $posts = $this->postRepository->getThreadPost($id);
+            $url = $this->navigationView->getLoginUrl();
 
+            return $this->forumView->showThreadPosts($posts, $url);
+        }
+
+        return $this->forumView->forumView($threads);
     }
 }

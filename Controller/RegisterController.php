@@ -7,6 +7,7 @@
  */
 require_once("./View/RegisterUserView.php");
 require_once("./Model/UserModel.php");
+require_once("./Model/ThreadRepository.php");
 require_once("./Helpers/UsernameToShortException.php");
 require_once("./Helpers/PasswordToShortException.php");
 require_once("./Helpers/PasswordDontMatchException.php");
@@ -19,12 +20,14 @@ require_once("./Controller/LoginController.php");
 class RegisterController {
     private $registerUserView;
     private $userModel;
+    private $threadRepository;
     private $view;
     private $loginController;
 
     public function __construct(UserModel $userModel){
         $this->registerUserView = new RegisterUserView();
         $this->userModel = $userModel;
+        $this->threadRepository = new ThreadRepository();
         $this->view = new ForumView();
         $this->loginController = new LoginController($this->userModel);
     }
@@ -51,7 +54,8 @@ class RegisterController {
                         $user = new User($username, $cryptPass);
                         $this->userModel->addUser($user);
                         $this->view->userAddedToDataBaseMessage();
-                        return $this->view->forumView();
+                        $threads = $this->threadRepository->getAllThreads();
+                        return $this->view->forumView($threads);
                     }
                 }
             }
