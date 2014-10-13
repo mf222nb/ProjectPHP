@@ -7,6 +7,7 @@
  */
 require_once("./View/ForumView.php");
 require_once("./View/ThreadView.php");
+require_once("./View/PostView.php");
 require_once("./View/NavigationView.php");
 require_once("./Controller/LoginController.php");
 require_once("./Controller/RegisterController.php");
@@ -19,6 +20,7 @@ require_once("./Model/Post.php");
 class ForumController{
     private $forumView;
     private $threadView;
+    private $postView;
     private $navigationView;
     private $loginController;
     private $registerController;
@@ -32,6 +34,7 @@ class ForumController{
         $this->postRepository = new PostRepository();
         $this->forumView = new ForumView();
         $this->threadView = new ThreadView();
+        $this->postView = new PostView();
         $this->navigationView = new NavigationView();
         $this->loginController = new LoginController($this->userModel);
         $this->registerController = new RegisterController($this->userModel);
@@ -67,10 +70,11 @@ class ForumController{
             $this->postRepository->addPost($post);
 
             $signOutUrl = $this->navigationView->getLoggedOutUrl();
-            return $this->forumView->loggedInForumView($signOutUrl, $username, $threads);
+            $threadUrl = $this->navigationView->getThreadUrl();
+            return $this->forumView->loggedInForumView($signOutUrl, $username, $threads, $threadUrl);
         }
 
-        if($this->forumView->userPressedThread()){
+        if($this->navigationView->userPressedThread()){
             $urlPath = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($urlPath);
             $posts = $this->postRepository->getThreadPost($id);
@@ -79,6 +83,29 @@ class ForumController{
             return $this->forumView->showThreadPosts($posts, $url);
         }
 
-        return $this->forumView->forumView($threads);
+        if($this->forumView->userPressedCreatePost()){
+            $url = $this->navigationView->getThreadUrl();
+            $urlPath = $this->forumView->getUrl();
+            $id = $this->forumView->getThreadId($urlPath);
+            return $this->postView->newPostView($url, $id);
+        }
+
+        //Lägger till en post i en tråd
+        if($this->postView->userPressedCreatePost()){
+            $this->postView->getPostInformation();
+            $id = $this->postView->getThreadId();
+            $content = $this->postView->getContent();
+            $user = $this->userModel->getUsername();
+
+            $post = new Post($content, $id, $user);
+            $this->postRepository->addPost($post);
+
+            $posts = $this->postRepository->getThreadPost($id);
+            $url = $this->navigationView->getLoginUrl();
+            return $this->forumView->showThreadPosts($posts, $url);
+        }
+
+        $threadUrl = $this->navigationView->getThreadUrl();
+        return $this->forumView->forumView($threads, $threadUrl);
     }
 }

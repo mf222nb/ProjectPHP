@@ -15,10 +15,10 @@ class ForumView{
         $this->navigationView = new NavigationView();
     }
 
-    public function forumView($threads){
+    public function forumView($threads, $threadUrl){
         $html = "";
         foreach($threads as $thread){
-            $html .= "<div><a href='?thread_number=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
+            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
         }
         $ret = "
         <p>$this->message</p>
@@ -30,10 +30,10 @@ class ForumView{
         return $ret;
     }
 
-    public function loggedInForumView($signOutUrl, $username, $threads){
+    public function loggedInForumView($signOutUrl, $username, $threads, $threadUrl){
         $html = "";
         foreach($threads as $thread){
-            $html .= "<div><a href='?thread_number=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
+            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
         }
         $ret = "
         <h3>$username is logged in</h3>
@@ -75,13 +75,6 @@ class ForumView{
 
     public function UserPressedNewThread(){
         if(isset($_GET['thread'])){
-            return true;
-        }
-        return false;
-    }
-
-    public function userPressedThread(){
-        if(isset($_GET['thread_number'])){
             return true;
         }
         return false;

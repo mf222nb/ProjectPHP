@@ -15,10 +15,10 @@ class ThreadView{
         <a href='$url'>Back</a>
         <form method='post' action='?' id='threadForm'>
             Thread name: <input type='text' name='name'>
-            <input type='submit' value='Create new thread' name='create'>
+            <input type='submit' value='Create new thread' name='createThread'>
         </form>
 
-        <textarea name='content' form='threadForm'>Enter text here...</textarea>";
+        <textarea name='content' form='threadForm'></textarea>";
 
         return $ret;
     }
@@ -34,7 +34,7 @@ class ThreadView{
     }
 
     public function userPressedCreate(){
-        if(isset($_POST['create'])){
+        if(isset($_POST['createThread'])){
             return true;
         }
         return false;

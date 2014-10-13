@@ -24,6 +24,17 @@ class NavigationView{
         return $url = "?login";
     }
 
+    public function getThreadUrl(){
+        return $url = "?thread_number";
+    }
+
+    public function userPressedThread(){
+        if(isset($_GET['thread_number'])){
+            return true;
+        }
+        return false;
+    }
+
     public function isSignedOut(){
         if(isset($_GET['signout'])){
             return true;

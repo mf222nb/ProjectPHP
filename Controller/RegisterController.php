@@ -15,6 +15,7 @@ require_once("./Helpers/UsernameContainsInvalidCharactersException.php");
 require_once("./Helpers/UsernameAndPasswordToShortException.php");
 require_once("./Model/User.php");
 require_once("./View/ForumView.php");
+require_once("./View/NavigationView.php");
 require_once("./Controller/LoginController.php");
 
 class RegisterController {
@@ -22,6 +23,7 @@ class RegisterController {
     private $userModel;
     private $threadRepository;
     private $view;
+    private $navigationView;
     private $loginController;
 
     public function __construct(UserModel $userModel){
@@ -29,6 +31,7 @@ class RegisterController {
         $this->userModel = $userModel;
         $this->threadRepository = new ThreadRepository();
         $this->view = new ForumView();
+        $this->navigationView = new NavigationView();
         $this->loginController = new LoginController($this->userModel);
     }
 
@@ -55,7 +58,8 @@ class RegisterController {
                         $this->userModel->addUser($user);
                         $this->view->userAddedToDataBaseMessage();
                         $threads = $this->threadRepository->getAllThreads();
-                        return $this->view->forumView($threads);
+                        $threadUrl = $this->navigationView->getThreadUrl();
+                        return $this->view->forumView($threads, $threadUrl);
                     }
                 }
             }
