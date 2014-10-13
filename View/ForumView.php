@@ -47,6 +47,7 @@ class ForumView{
 
     public function showThreadPosts($posts, $url){
         $html = "";
+        $id = 0;
         foreach($posts as $post){
             $id = $post->getThreadId();
             $html .= "<div>". $post->getContent() ." " . $post->getUser() . "</div>";
