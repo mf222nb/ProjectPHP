@@ -10,52 +10,73 @@ require_once("NavigationView.php");
 class ForumView{
     private $navigationView;
     private $message;
+    private $id;
 
     public function __Construct(){
         $this->navigationView = new NavigationView();
     }
 
-    public function forumView($threads, $threadUrl){
+    public function forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated){
         $html = "";
+
         foreach($threads as $thread){
             $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
         }
+
+        if($authenticated === true){
+            $side = "<h3>$username is logged in</h3>
+                     <a href='?thread'>New thread</a>
+                     <a href='$signOutUrl'>Log Out</a>";
+        }
+        else{
+            $side = "<a href='?login'>Login</a>
+                    <a href='?register'>Register User</a>";
+        }
+
         $ret = "
         <p>$this->message</p>
-        <a href='?login'>Login</a>
-        <a href='?register'>Register User</a>
+        $side
         <p>$html</p>
         ";
 
         return $ret;
     }
 
-    public function loggedInForumView($signOutUrl, $username, $threads, $threadUrl){
+    public function showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username){
         $html = "";
-        foreach($threads as $thread){
-            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
+        $id = 0;
+
+        foreach($posts as $post){
+            $id = $post->getThreadId();
+            $name = $post->getUser();
+            if($username === $name){
+                $delete = "<a href='?delete_post=". $post->getPostId() ."'>Delete post</a>";
+            } else {
+                $delete = "";
+            }
+            $html .= "<div>". $post->getContent() ." " . $post->getUser() . " $delete</div>";
+        }
+        if($authenticated === true){
+            $side = "<a href='$loginUrl'>Back</a>
+                     <a href='?create_post=$id'>Create new post</a>";
+        }
+        else{
+            $side = "<a href='$indexUrl'>Back</a>";
         }
         $ret = "
-        <h3>$username is logged in</h3>
-        <p>$this->message</p>
-        <a href='?thread'>New thread</a>
-        <a href='$signOutUrl'>Log Out</a>
+        $side
         <p>$html</p>";
 
         return $ret;
     }
 
-    public function showThreadPosts($posts, $url){
-        $html = "";
-        $id = 0;
-        foreach($posts as $post){
-            $id = $post->getThreadId();
-            $html .= "<div>". $post->getContent() ." " . $post->getUser() . "</div>";
-        }
-        $ret = "
-        <a href='$url'>Back</a>
-        <a href='?create_post=$id'>Create new post</a>
-        <p>$html</p>";
+    public function confirmView($loginUrl, $id){
+        $ret = "<a href='$loginUrl'>Back</a>
+        <p>Are you sure you want to delete?</p>
+        <form method='post' action='?'>
+            <input type='hidden' name='id' value='$id'>
+            <input type='submit' value='Yes' name='remove'>
+        </form>";
 
         return $ret;
     }
@@ -88,6 +109,26 @@ class ForumView{
         return false;
     }
 
+    public function userPressedDeletePost(){
+        if(isset($_GET['delete_post'])){
+            return true;
+        }
+        return false;
+    }
+
+    public function userPressedYes(){
+        if(isset($_POST['remove'])){
+            return true;
+        }
+        return false;
+    }
+
+    public function getPostId(){
+        if(isset($_POST['id'])){
+            $this->id = $_POST['id'];
+        }
+    }
+
     public function userPressedLogOut(){
         if($this->navigationView->isSignedOut()){
             return true;
@@ -113,5 +154,9 @@ class ForumView{
     public function getThreadId($string){
         $end = preg_replace("/[^0-9]/", "", $string);
         return $end;
+    }
+
+    public function getId(){
+        return $this->id;
     }
 }

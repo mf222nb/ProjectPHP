@@ -13,6 +13,7 @@ require_once("./Helpers/PasswordToShortException.php");
 require_once("./Helpers/PasswordDontMatchException.php");
 require_once("./Helpers/UsernameContainsInvalidCharactersException.php");
 require_once("./Helpers/UsernameAndPasswordToShortException.php");
+require_once('./Helpers/ServiceHelper.php');
 require_once("./Model/User.php");
 require_once("./View/ForumView.php");
 require_once("./View/NavigationView.php");
@@ -25,6 +26,7 @@ class RegisterController {
     private $view;
     private $navigationView;
     private $loginController;
+    private $serviceHelper;
 
     public function __construct(UserModel $userModel){
         $this->registerUserView = new RegisterUserView();
@@ -33,9 +35,12 @@ class RegisterController {
         $this->view = new ForumView();
         $this->navigationView = new NavigationView();
         $this->loginController = new LoginController($this->userModel);
+        $this->serviceHelper = new ServiceHelper();
     }
 
     public function doControl(){
+        $userAgent = $this->serviceHelper->getUserAgent();
+        $authenticated = $this->userModel->getAuthenticatedUser($userAgent);
         /*Om användaren trycker på Register knappen så hämtar vi ut information om vad användaren skrev in i fälten
         och sedan kollar vi så att de uppfyller alla kraven så som längd etc, och om de gör det så tittar vi om
         användarnamnet är ledigt. Är användarnamnet ledigt så krypterar vi lösenordet och sedan lägger till det i
@@ -59,7 +64,8 @@ class RegisterController {
                         $this->view->userAddedToDataBaseMessage();
                         $threads = $this->threadRepository->getAllThreads();
                         $threadUrl = $this->navigationView->getThreadUrl();
-                        return $this->view->forumView($threads, $threadUrl);
+                        $signOutUrl = $this->navigationView->getLoggedOutUrl();
+                        return $this->view->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
                     }
                 }
             }

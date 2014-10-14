@@ -101,7 +101,8 @@ class LoginController{
         $username = $this->userModel->getUsername();
         $threads = $this->threadRepository->getAllThreads();
         $threadUrl = $this->navigationView->getThreadUrl();
-        $forumView = $this->forumView->loggedInForumView($signOutUrl, $username, $threads, $threadUrl);
+        $forumView = $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+
         $authenticated = $this->userModel->getAuthenticatedUser($userAgent);
 
         if($authenticated === true){

@@ -10,11 +10,13 @@ class Post{
     private $content;
     private $threadId;
     private $user;
+    private $postId;
 
-    public function __construct($content, $threadId, $user){
+    public function __construct($content, $threadId, $user, $postId = null){
         $this->content = $content;
         $this->threadId = $threadId;
         $this->user = $user;
+        $this->postId = $postId;
     }
 
     public function getContent(){
@@ -27,5 +29,9 @@ class Post{
 
     public function getUser(){
         return $this->user;
+    }
+
+    public function getPostId(){
+        return $this->postId;
     }
 }

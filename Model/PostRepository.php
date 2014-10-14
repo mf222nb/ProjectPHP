@@ -11,6 +11,7 @@ class PostRepository extends Repository{
     private static $content = 'Content';
     private static $threadId = 'ThreadId';
     private static $user = 'User';
+    private static $postId = 'PostId';
 
     private $postList;
 
@@ -47,13 +48,27 @@ class PostRepository extends Repository{
                 $content = $post['Content'];
                 $threadId = $post['ThreadId'];
                 $user = $post['User'];
+                $postId = $post['PostId'];
 
-                $posts = new Post($content, $threadId, $user);
+                $posts = new Post($content, $threadId, $user, $postId);
 
                 $this->postList[] = $posts;
             }
 
             return $this->postList;
+        }
+        catch(PDOException $e){
+
+        }
+    }
+
+    public function deletePost($id){
+        try{
+            $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ?";
+            $params = array($id);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
         }
         catch(PDOException $e){
 

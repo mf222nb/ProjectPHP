@@ -6,9 +6,6 @@ class UserModel extends Repository{
     private $username;
     private $onlyPass;
     private $authenticatedUser = false;
-    //Eftersom det bara finns 1 användare så har jag en sträng som jag placerar i kakan som jag jämför med men
-    //den ändras inte utan den har ett satt värde.
-    private $randomString = "dsdididjsadladacm";
     private $regExp = '/[^a-z0-9\-_\.]/i';
 
     //Databasvariabler
@@ -39,11 +36,6 @@ class UserModel extends Repository{
             unset($_SESSION["ValidLogin"]);
         }
         return $this->authenticatedUser = false;
-    }
-
-    //Hämtar ut strängen vars värde ska in i kakan.
-    public function getRandomString(){
-        return $this->randomString;
     }
 
     //Kontrollerar om kakans värde stämmer överens med randomsStrings värde.

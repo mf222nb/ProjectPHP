@@ -16,6 +16,7 @@ require_once("./Model/ThreadRepository.php");
 require_once("./Model/PostRepository.php");
 require_once("./Model/Thread.php");
 require_once("./Model/Post.php");
+require_once('./Helpers/ServiceHelper.php');
 
 class ForumController{
     private $forumView;
@@ -27,6 +28,7 @@ class ForumController{
     private $userModel;
     private $threadRepository;
     private $postRepository;
+    private $serviceHelper;
 
     public function __Construct(){
         $this->userModel = new UserModel();
@@ -38,9 +40,20 @@ class ForumController{
         $this->navigationView = new NavigationView();
         $this->loginController = new LoginController($this->userModel);
         $this->registerController = new RegisterController($this->userModel);
+        $this->serviceHelper = new ServiceHelper();
     }
 
     public function doControl(){
+        $userAgent = $this->serviceHelper->getUserAgent();
+        $authenticated = $this->userModel->getAuthenticatedUser($userAgent);
+
+        $signOutUrl = $this->navigationView->getLoggedOutUrl();
+        $threadUrl = $this->navigationView->getThreadUrl();
+        $loginUrl = $this->navigationView->getLoginUrl();
+        $indexUrl = $this->navigationView->getIndexUrl();
+
+        $username = $this->userModel->getUsername();
+
         if($this->forumView->getLogin()){
             return $this->loginController->doControl();
         }
@@ -60,7 +73,7 @@ class ForumController{
         if($this->threadView->userPressedCreate()){
             $this->threadView->getThreadInfromation();
             $threadName = $this->threadView->getThreadName();
-            $username = $this->userModel->getUsername();
+            //$username = $this->userModel->getUsername();
             $thread = new Thread($threadName, $username);
             $this->threadRepository->addThread($thread);
 
@@ -69,24 +82,22 @@ class ForumController{
             $post = new Post($content, $id, $username);
             $this->postRepository->addPost($post);
 
-            $signOutUrl = $this->navigationView->getLoggedOutUrl();
-            $threadUrl = $this->navigationView->getThreadUrl();
-            return $this->forumView->loggedInForumView($signOutUrl, $username, $threads, $threadUrl);
+            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
         }
 
         if($this->navigationView->userPressedThread()){
             $urlPath = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($urlPath);
             $posts = $this->postRepository->getThreadPost($id);
-            $url = $this->navigationView->getLoginUrl();
 
-            return $this->forumView->showThreadPosts($posts, $url);
+            return $this->forumView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
         }
 
         if($this->forumView->userPressedCreatePost()){
             $url = $this->navigationView->getThreadUrl();
             $urlPath = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($urlPath);
+
             return $this->postView->newPostView($url, $id);
         }
 
@@ -101,11 +112,23 @@ class ForumController{
             $this->postRepository->addPost($post);
 
             $posts = $this->postRepository->getThreadPost($id);
-            $url = $this->navigationView->getLoginUrl();
-            return $this->forumView->showThreadPosts($posts, $url);
+
+            return $this->forumView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
         }
 
-        $threadUrl = $this->navigationView->getThreadUrl();
-        return $this->forumView->forumView($threads, $threadUrl);
+        if($this->forumView->userPressedDeletePost()){
+            $url = $this->forumView->getUrl();
+            $id = $this->forumView->getThreadId($url);
+            return $this->forumView->confirmView($loginUrl, $id);
+        }
+
+        if($this->forumView->userPressedYes()){
+            $this->forumView->getPostId();
+            $id = $this->forumView->getId();
+            $this->postRepository->deletePost($id);
+            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+        }
+
+        return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
     }
 }
