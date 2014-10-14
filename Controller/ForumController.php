@@ -54,10 +54,12 @@ class ForumController{
 
         $username = $this->userModel->getUsername();
 
+        //Om man ska logga in så kommer en annan vy där en annan contoller att göra det jobbet
         if($this->forumView->getLogin()){
             return $this->loginController->doControl();
         }
 
+        //Om man ska regristrera sig så kommer man till en annan vy där en anna controller gör det jobbet
         if($this->forumView->getRegister()){
             return $this->registerController->doControl();
         }
@@ -94,11 +96,10 @@ class ForumController{
         }
 
         if($this->forumView->userPressedCreatePost()){
-            $url = $this->navigationView->getThreadUrl();
             $urlPath = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($urlPath);
 
-            return $this->postView->newPostView($url, $id);
+            return $this->postView->newPostView($threadUrl, $id, $loginUrl);
         }
 
         //Lägger till en post i en tråd
@@ -116,18 +117,40 @@ class ForumController{
             return $this->forumView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
         }
 
+        //Frågar om man är säker att man vill ta bort en post
         if($this->forumView->userPressedDeletePost()){
             $url = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($url);
             return $this->forumView->confirmView($loginUrl, $id);
         }
 
+        //Tar bort en post i en tråd från databasen
         if($this->forumView->userPressedYes()){
             $this->forumView->getPostId();
             $id = $this->forumView->getId();
             $this->postRepository->deletePost($id);
             return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
         }
+
+        //När man vill redigera en post kommer man till samma vy som man använder när man skapar en post
+        if($this->forumView->userPressedEditPost()){
+            $urlPath = $this->forumView->getUrl();
+            $id = $this->forumView->getThreadId($urlPath);
+            $post = $this->postRepository->getSinglePost($id);
+
+            return $this->postView->newPostView($threadUrl, $id, $loginUrl, $post);
+        }
+
+        //Redigerar en post
+        if($this->postView->userPressedAlterPost()){
+            $this->postView->getPostInformation();
+            $content = $this->postView->getContent();
+            $id = $this->postView->getThreadId();
+            $this->postRepository->updatePost($content, $id);
+
+            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+        }
+
 
         return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
     }

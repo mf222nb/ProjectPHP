@@ -51,10 +51,12 @@ class ForumView{
             $name = $post->getUser();
             if($username === $name){
                 $delete = "<a href='?delete_post=". $post->getPostId() ."'>Delete post</a>";
+                $update = "<a href='?edit_post=". $post->getPostId() ."'>Edit</a>";
             } else {
                 $delete = "";
+                $update = "";
             }
-            $html .= "<div>". $post->getContent() ." " . $post->getUser() . " $delete</div>";
+            $html .= "<div>". $post->getContent() ." " . $post->getUser() . " $update $delete</div>";
         }
         if($authenticated === true){
             $side = "<a href='$loginUrl'>Back</a>
@@ -111,6 +113,13 @@ class ForumView{
 
     public function userPressedDeletePost(){
         if(isset($_GET['delete_post'])){
+            return true;
+        }
+        return false;
+    }
+
+    public function userPressedEditPost(){
+        if(isset($_GET['edit_post'])){
             return true;
         }
         return false;

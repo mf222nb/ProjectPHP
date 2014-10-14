@@ -41,4 +41,12 @@ class NavigationView{
         }
         return false;
     }
+
+    public function getAlterNameValue(){
+        return $value = "alterPost";
+    }
+
+    public function getCreateNameValue(){
+        return $value = "createPost";
+    }
 }

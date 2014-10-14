@@ -6,17 +6,36 @@
  * Time: 15:26
  */
 
+require_once('NavigationView.php');
+
 class PostView{
     private $content;
     private $threadId;
+    private $navigationView;
 
-    public function newPostView($url, $id){
+    public function __construct(){
+        $this->navigationView = new NavigationView();
+    }
+
+    public function newPostView($url, $id, $loginUrl, $post = null){
+        if($post != null){
+            $summary = $post['Content'];
+            $buttonValue = "Edit";
+            $backUrl = $loginUrl;
+            $alter = $this->navigationView->getAlterNameValue();
+        }
+        else{
+            $summary = '';
+            $buttonValue = 'Create new post';
+            $backUrl = $url.'='.$id;
+            $alter = $this->navigationView->getCreateNameValue();
+        }
         $ret = "
-        <a href='$url=$id'>Back</a>
-        <p><textarea name='content' form='postForm'></textarea></p>
+        <a href='$backUrl'>Back</a>
+        <p><textarea name='content' form='postForm'>$summary</textarea></p>
         <form method='post' action='?' id='postForm'>
             <input type='hidden' name='threadId' value='$id'>
-            <input type='submit' value='Create new post' name='createPost'>
+            <input type='submit' value='$buttonValue' name='$alter'>
         </form>";
 
         return $ret;
@@ -34,7 +53,16 @@ class PostView{
     }
 
     public function userPressedCreatePost(){
-        if(isset($_POST['createPost'])){
+        $create = $this->navigationView->getCreateNameValue();
+        if(isset($_POST[$create])){
+            return true;
+        }
+        return false;
+    }
+
+    public function userPressedAlterPost(){
+        $alter = $this->navigationView->getAlterNameValue();
+        if(isset($_POST[$alter])){
             return true;
         }
         return false;

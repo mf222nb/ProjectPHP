@@ -62,10 +62,40 @@ class PostRepository extends Repository{
         }
     }
 
+    public function getSinglePost($id){
+        try{
+            $sql = "SELECT * FROM $this->dbTable WHERE ". self::$postId ." = ?";
+            $params = array($id);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+
+            $result = $query->fetch();
+
+            return $result;
+        }
+        catch(PDOException $e){
+
+        }
+    }
+
     public function deletePost($id){
         try{
             $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ?";
             $params = array($id);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+        }
+        catch(PDOException $e){
+
+        }
+    }
+
+    public function updatePost($content, $id){
+        try{
+            $sql = "UPDATE $this->dbTable SET ". self::$content ." = ? WHERE ". self::$postId." = ?";
+            $params = array($content, $id);
 
             $query = $this->db->prepare($sql);
             $query->execute($params);
