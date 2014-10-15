@@ -70,28 +70,28 @@ class RegisterUserView {
     }
 
     public function usernameToShortMessage(){
-        $this->message = "Användarnamnet har för få tecken. Minst 3 tecken";
+        $this->message = "Username is to short. Least 3 characters";
     }
 
     public function passwordToShortMessage(){
-        $this->message2 = "Lösenorden har för få tecken. Minst 6 tecken";
+        $this->message2 = "Password is to short. Least 6 characters";
     }
 
     public function passwordDontMatchMessage(){
-        $this->message2 = "Lösenorden matchar inte.";
+        $this->message2 = "Password don't match.";
     }
 
     public function usernameAlreadyExistMessage(){
-        $this->message = "Användarnamnet är redan upptaget";
+        $this->message = "Username is already taken.";
     }
 
     public function usernameContainInvalidCharacterMessage($e){
         $this->username = $e;
-        $this->message = "Användarnamnet innehåller ogiltiga tecken";
+        $this->message = "Username contains invalid characters";
     }
 
     public function usernameAndPasswordToShortMessage(){
-        $this->message = "Användarnamnet har för få tecken. Minst 3 tecken";
-        $this->message2 = "Lösenorden har för få tecken. Minst 6 tecken";
+        $this->message = "Username is to short. Least 3 characters";
+        $this->message2 = "Password is to short. Least 6 characters";
     }
 }

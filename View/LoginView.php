@@ -47,22 +47,22 @@ class LoginView{
 
     public function failedLogIn($username, $password){
         if($username === ""){
-            $this->message = "Användarnamn saknas";
+            $this->message = "Username is missing";
         }
         else if($password === ""){
-            $this->message = "Lösenord saknas";
+            $this->message = "Password is missing";
         }
         else{
-            $this->message = "Felaktigt användarnamn och/eller lösenord";
+            $this->message = "Username and/or password is wrong";
         }
     }
 
     public function LogInSuccessMessage(){
-        return $this->message = "Inloggning lyckades";
+        return $this->message = "Log in was successful";
     }
 
     public function logOutSuccessMessage(){
-        return $this->message = "Du har nu loggat ut";
+        return $this->message = "You have now logged out";
     }
 
     public function setMessage($message){
