@@ -20,7 +20,20 @@ class ForumView{
         $html = "";
 
         foreach($threads as $thread){
-            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ."</div>";
+            $name = $thread->getUser();
+            if($username === "Admin"){
+                $update = "<a href='?edit_thread=". $thread->getThreadId() ."'>Edit</a>";
+                $delete = "<a href='?remove_thread=". $thread->getThreadId() ."'>Delete</a>";
+            }
+            elseif($username === $name){
+                $update = "<a href='?edit_thread=". $thread->getThreadId() ."'>Edit</a>";
+                $delete = "";
+            }
+            else{
+                $update = "";
+                $delete = "";
+            }
+            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ." $update $delete</div>";
         }
 
         if($authenticated === true){
@@ -38,36 +51,6 @@ class ForumView{
         $side
         <p>$html</p>
         ";
-
-        return $ret;
-    }
-
-    public function showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username){
-        $html = "";
-        $id = 0;
-
-        foreach($posts as $post){
-            $id = $post->getThreadId();
-            $name = $post->getUser();
-            if($username === $name){
-                $delete = "<a href='?delete_post=". $post->getPostId() ."'>Delete post</a>";
-                $update = "<a href='?edit_post=". $post->getPostId() ."'>Edit</a>";
-            } else {
-                $delete = "";
-                $update = "";
-            }
-            $html .= "<div>". $post->getContent() ." " . $post->getUser() . " $update $delete</div>";
-        }
-        if($authenticated === true){
-            $side = "<a href='$loginUrl'>Back</a>
-                     <a href='?create_post=$id'>Create new post</a>";
-        }
-        else{
-            $side = "<a href='$indexUrl'>Back</a>";
-        }
-        $ret = "
-        $side
-        <p>$html</p>";
 
         return $ret;
     }
@@ -97,29 +80,22 @@ class ForumView{
         return false;
     }
 
-    public function UserPressedNewThread(){
+    public function userPressedNewThread(){
         if(isset($_GET['thread'])){
             return true;
         }
         return false;
     }
 
-    public function userPressedCreatePost(){
-        if(isset($_GET['create_post'])){
+    public function userPressedEditThread(){
+        if(isset($_GET['edit_thread'])){
             return true;
         }
         return false;
     }
 
-    public function userPressedDeletePost(){
-        if(isset($_GET['delete_post'])){
-            return true;
-        }
-        return false;
-    }
-
-    public function userPressedEditPost(){
-        if(isset($_GET['edit_post'])){
+    public function userPressedRemoveThread(){
+        if(isset($_GET['remove_thread'])){
             return true;
         }
         return false;

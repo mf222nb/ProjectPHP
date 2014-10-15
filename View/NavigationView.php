@@ -42,11 +42,19 @@ class NavigationView{
         return false;
     }
 
-    public function getAlterNameValue(){
+    public function getAlterPostNameValue(){
         return $value = "alterPost";
     }
 
-    public function getCreateNameValue(){
+    public function getCreatePostNameValue(){
         return $value = "createPost";
+    }
+
+    public function getAlterThreadNameValue(){
+        return $value = "alterThread";
+    }
+
+    public function getCreateThreadNameValue(){
+        return $value = "createThread";
     }
 }

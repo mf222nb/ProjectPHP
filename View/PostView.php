@@ -22,20 +22,20 @@ class PostView{
             $summary = $post['Content'];
             $buttonValue = "Edit";
             $backUrl = $loginUrl;
-            $alter = $this->navigationView->getAlterNameValue();
+            $name = $this->navigationView->getAlterPostNameValue();
         }
         else{
             $summary = '';
             $buttonValue = 'Create new post';
             $backUrl = $url.'='.$id;
-            $alter = $this->navigationView->getCreateNameValue();
+            $name = $this->navigationView->getCreatePostNameValue();
         }
         $ret = "
         <a href='$backUrl'>Back</a>
         <p><textarea name='content' form='postForm'>$summary</textarea></p>
         <form method='post' action='?' id='postForm'>
             <input type='hidden' name='threadId' value='$id'>
-            <input type='submit' value='$buttonValue' name='$alter'>
+            <input type='submit' value='$buttonValue' name='$name'>
         </form>";
 
         return $ret;
@@ -53,7 +53,7 @@ class PostView{
     }
 
     public function userPressedCreatePost(){
-        $create = $this->navigationView->getCreateNameValue();
+        $create = $this->navigationView->getCreatePostNameValue();
         if(isset($_POST[$create])){
             return true;
         }
@@ -61,7 +61,7 @@ class PostView{
     }
 
     public function userPressedAlterPost(){
-        $alter = $this->navigationView->getAlterNameValue();
+        $alter = $this->navigationView->getAlterPostNameValue();
         if(isset($_POST[$alter])){
             return true;
         }

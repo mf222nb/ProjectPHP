@@ -12,6 +12,7 @@ class ThreadRepository extends Repository{
     private $db;
     private static $name = 'ThreadName';
     private static $user = 'User';
+    private static $threadId = 'ThreadId';
 
     private $idArray;
     private $threadList;
@@ -61,6 +62,23 @@ class ThreadRepository extends Repository{
         }
     }
 
+    public function getSingleThread($threadId){
+        try{
+            $sql = "SELECT * FROM $this->dbTable WHERE ".self::$threadId." = ?";
+            $params = array($threadId);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+
+            $result = $query->fetch();
+
+            return $result;
+        }
+        catch(PDOException $e){
+
+        }
+    }
+
     public function getAllThreads(){
         try{
             $sql = "SELECT * FROM $this->dbTable";
@@ -84,6 +102,19 @@ class ThreadRepository extends Repository{
         }
         catch(PDOException $e){
             var_dump($e->getMessage());
+        }
+    }
+
+    public function updateThread($name, $threadId){
+        try{
+            $sql = "UPDATE $this->dbTable SET ".self::$name." = ? WHERE ".self::$threadId." = ?";
+            $params = array($name, $threadId);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+        }
+        catch(PDOException $e){
+
         }
     }
 }
