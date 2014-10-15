@@ -23,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ForumView.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ForumView.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/View/ForumView.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="21" selection-start="2693" selection-end="2693" vertical-scroll-proportion="0.50092083" vertical-offset="1428" max-vertical-offset="2584">
+            <state line="59" column="39" selection-start="1773" selection-end="1773" vertical-scroll-proportion="-7.1923075" vertical-offset="816" max-vertical-offset="2584">
               <folding>
-                <marker date="1413374961711" expanded="true" signature="1820:1952" placeholder="..." />
+                <marker date="1413375322438" expanded="true" signature="1820:1952" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ForumController.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ForumController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Controller/ForumController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="179" column="60" selection-start="7264" selection-end="7264" vertical-scroll-proportion="-28.76923" vertical-offset="2295" max-vertical-offset="3196">
+            <state line="164" column="64" selection-start="6663" selection-end="6663" vertical-scroll-proportion="0.46777165" vertical-offset="2534" max-vertical-offset="3383">
               <folding />
             </state>
           </provider>
@@ -58,11 +58,12 @@
       <file leaf-file-name="ThreadRepository.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model/ThreadRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="27" selection-start="1891" selection-end="1891" vertical-scroll-proportion="-20.076923" vertical-offset="651" max-vertical-offset="2040">
+            <state line="126" column="37" selection-start="3250" selection-end="3250" vertical-scroll-proportion="-16.153847" vertical-offset="1637" max-vertical-offset="2261">
               <folding>
-                <marker date="1413365065618" expanded="true" signature="1636:1670" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-                <marker date="1413365065618" expanded="true" signature="2022:2050" placeholder="SELECT * FRO..." />
-                <marker date="1413365065618" expanded="true" signature="2717:2742" placeholder="UPDATE $this..." />
+                <marker date="1413376260895" expanded="true" signature="1636:1670" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+                <marker date="1413376260895" expanded="true" signature="2022:2050" placeholder="SELECT * FRO..." />
+                <marker date="1413376260895" expanded="true" signature="2717:2742" placeholder="UPDATE $this..." />
+                <marker date="1413376260895" expanded="true" signature="3066:3098" placeholder="DELETE FROM ..." />
               </folding>
             </state>
           </provider>
@@ -71,11 +72,12 @@
       <file leaf-file-name="PostRepository.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model/PostRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="27" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-6.5384617" vertical-offset="1003" max-vertical-offset="1819">
+            <state line="98" column="0" selection-start="2537" selection-end="2537" vertical-scroll-proportion="-11.730769" vertical-offset="1276" max-vertical-offset="2040">
               <folding>
-                <marker date="1413292995947" expanded="true" signature="1727:1761" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-                <marker date="1413292995947" expanded="true" signature="2107:2139" placeholder="DELETE FROM ..." />
-                <marker date="1413292995947" expanded="true" signature="2426:2451" placeholder="UPDATE $this..." />
+                <marker date="1413376126406" expanded="true" signature="1727:1761" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+                <marker date="1413376126406" expanded="true" signature="2107:2139" placeholder="DELETE FROM ..." />
+                <marker date="1413376126406" expanded="true" signature="2436:2468" placeholder="DELETE FROM ..." />
+                <marker date="1413376126406" expanded="true" signature="2763:2788" placeholder="UPDATE $this..." />
               </folding>
             </state>
           </provider>
@@ -159,13 +161,13 @@
         <option value="$PROJECT_DIR$/Controller/RegisterController.php" />
         <option value="$PROJECT_DIR$/Controller/LoginController.php" />
         <option value="$PROJECT_DIR$/Model/Post.php" />
-        <option value="$PROJECT_DIR$/Model/PostRepository.php" />
-        <option value="$PROJECT_DIR$/Model/ThreadRepository.php" />
         <option value="$PROJECT_DIR$/View/NavigationView.php" />
         <option value="$PROJECT_DIR$/View/PostView.php" />
-        <option value="$PROJECT_DIR$/Controller/ForumController.php" />
         <option value="$PROJECT_DIR$/View/ThreadView.php" />
         <option value="$PROJECT_DIR$/View/ForumView.php" />
+        <option value="$PROJECT_DIR$/Model/PostRepository.php" />
+        <option value="$PROJECT_DIR$/Model/ThreadRepository.php" />
+        <option value="$PROJECT_DIR$/Controller/ForumController.php" />
       </list>
     </option>
   </component>
@@ -436,7 +438,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="20" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="1496">
           <folding>
-            <marker date="1413374961711" expanded="true" signature="1820:1952" placeholder="..." />
+            <marker date="1413375322438" expanded="true" signature="1820:1952" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -450,9 +452,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="37" selection-start="753" selection-end="753" vertical-scroll-proportion="0.0" vertical-offset="86" max-vertical-offset="629">
           <folding>
-            <marker date="1413292995947" expanded="true" signature="1727:1761" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-            <marker date="1413292995947" expanded="true" signature="2107:2139" placeholder="DELETE FROM ..." />
-            <marker date="1413292995947" expanded="true" signature="2426:2451" placeholder="UPDATE $this..." />
+            <marker date="1413376126406" expanded="true" signature="1727:1761" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+            <marker date="1413376126406" expanded="true" signature="2107:2139" placeholder="DELETE FROM ..." />
+            <marker date="1413376126406" expanded="true" signature="2436:2468" placeholder="DELETE FROM ..." />
+            <marker date="1413376126406" expanded="true" signature="2763:2788" placeholder="UPDATE $this..." />
           </folding>
         </state>
       </provider>
@@ -507,7 +510,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="25" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1088">
           <folding>
-            <marker date="1413374961711" expanded="true" signature="1820:1952" placeholder="..." />
+            <marker date="1413375322438" expanded="true" signature="1820:1952" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -668,28 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/ThreadRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="27" selection-start="1891" selection-end="1891" vertical-scroll-proportion="-20.076923" vertical-offset="651" max-vertical-offset="2040">
-          <folding>
-            <marker date="1413365065618" expanded="true" signature="1636:1670" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-            <marker date="1413365065618" expanded="true" signature="2022:2050" placeholder="SELECT * FRO..." />
-            <marker date="1413365065618" expanded="true" signature="2717:2742" placeholder="UPDATE $this..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/PostRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="27" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-6.5384617" vertical-offset="1003" max-vertical-offset="1819">
-          <folding>
-            <marker date="1413292995947" expanded="true" signature="1727:1761" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
-            <marker date="1413292995947" expanded="true" signature="2107:2139" placeholder="DELETE FROM ..." />
-            <marker date="1413292995947" expanded="true" signature="2426:2451" placeholder="UPDATE $this..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/View/NavigationView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="57" column="26" selection-start="1142" selection-end="1142" vertical-scroll-proportion="-20.076923" vertical-offset="362" max-vertical-offset="1020">
@@ -706,13 +687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/ForumController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="179" column="60" selection-start="7264" selection-end="7264" vertical-scroll-proportion="-28.76923" vertical-offset="2295" max-vertical-offset="3196">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/View/ThreadView.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="58" column="13" selection-start="1831" selection-end="1831" vertical-scroll-proportion="-31.846153" vertical-offset="73" max-vertical-offset="2414">
@@ -725,10 +699,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/View/ForumView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="21" selection-start="2693" selection-end="2693" vertical-scroll-proportion="0.50092083" vertical-offset="1428" max-vertical-offset="2584">
+        <state line="59" column="39" selection-start="1773" selection-end="1773" vertical-scroll-proportion="-7.1923075" vertical-offset="816" max-vertical-offset="2584">
           <folding>
-            <marker date="1413374961711" expanded="true" signature="1820:1952" placeholder="..." />
+            <marker date="1413375322438" expanded="true" signature="1820:1952" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/PostRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="0" selection-start="2537" selection-end="2537" vertical-scroll-proportion="-11.730769" vertical-offset="1276" max-vertical-offset="2040">
+          <folding>
+            <marker date="1413376126406" expanded="true" signature="1727:1761" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+            <marker date="1413376126406" expanded="true" signature="2107:2139" placeholder="DELETE FROM ..." />
+            <marker date="1413376126406" expanded="true" signature="2436:2468" placeholder="DELETE FROM ..." />
+            <marker date="1413376126406" expanded="true" signature="2763:2788" placeholder="UPDATE $this..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/ThreadRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="37" selection-start="3250" selection-end="3250" vertical-scroll-proportion="-16.153847" vertical-offset="1637" max-vertical-offset="2261">
+          <folding>
+            <marker date="1413376260895" expanded="true" signature="1636:1670" placeholder="SELECT * FRO..$this-&gt;dbTable WHERE..." />
+            <marker date="1413376260895" expanded="true" signature="2022:2050" placeholder="SELECT * FRO..." />
+            <marker date="1413376260895" expanded="true" signature="2717:2742" placeholder="UPDATE $this..." />
+            <marker date="1413376260895" expanded="true" signature="3066:3098" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/ForumController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="164" column="64" selection-start="6663" selection-end="6663" vertical-scroll-proportion="0.46777165" vertical-offset="2534" max-vertical-offset="3383">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -117,4 +117,17 @@ class ThreadRepository extends Repository{
 
         }
     }
+
+    public function deleteThread($threadId){
+        try{
+            $sql = "DELETE FROM $this->dbTable WHERE ".self::$threadId." = ?";
+            $params = array($threadId);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+        }
+        catch(PDOException $e){
+
+        }
+    }
 }

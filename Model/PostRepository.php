@@ -92,6 +92,19 @@ class PostRepository extends Repository{
         }
     }
 
+    public function deleteAllPostsFromThread($threadId){
+        try{
+            $sql = "DELETE FROM $this->dbTable WHERE ". self::$threadId ." = ?";
+            $params = array($threadId);
+
+            $query = $this->db->prepare($sql);
+            $query->execute($params);
+        }
+        catch(PDOException $e){
+
+        }
+    }
+
     public function updatePost($content, $id){
         try{
             $sql = "UPDATE $this->dbTable SET ". self::$content ." = ? WHERE ". self::$postId." = ?";

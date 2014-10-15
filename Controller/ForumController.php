@@ -156,6 +156,17 @@ class ForumController{
             return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
         }
 
+        if($this->forumView->adminPressedRemoveThread()){
+            $urlPath = $this->forumView->getUrl();
+            $threadId = $this->forumView->getThreadId($urlPath);
+            $this->postRepository->deleteAllPostsFromThread($threadId);
+            $this->threadRepository->deleteThread($threadId);
+
+            $threads = $this->threadRepository->getAllThreads();
+
+            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+        }
+
         //När man vill redigera en post kommer man till samma vy som man använder när man skapar en post
         if($this->threadView->userPressedEditPost()){
             $urlPath = $this->forumView->getUrl();

@@ -94,7 +94,7 @@ class ForumView{
         return false;
     }
 
-    public function userPressedRemoveThread(){
+    public function adminPressedRemoveThread(){
         if(isset($_GET['remove_thread'])){
             return true;
         }
