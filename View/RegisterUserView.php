@@ -94,4 +94,8 @@ class RegisterUserView {
         $this->message = "Username is to short. Least 3 characters";
         $this->message2 = "Password is to short. Least 6 characters";
     }
+
+    public function usernametoLongMessage(){
+        $this->message = "Username is to long. Max 40 characters";
+    }
 }

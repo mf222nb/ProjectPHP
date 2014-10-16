@@ -12,6 +12,7 @@ abstract class Repository {
     protected $dbConnstring = 'mysql:host=127.0.0.1;dbname=project';
     protected $dbConnection;
     protected $dbTable;
+    protected $dbTable2;
 
     protected function connection() {
         if ($this->dbConnection == NULL)

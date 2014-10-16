@@ -13,17 +13,18 @@ class ThreadView{
     private $content;
     private $threadId;
     private $navigationView;
+    private $message;
 
     public function __construct(){
         $this->navigationView = new NavigationView();
     }
 
-    public function newThreadView($url, $thredId = null,$thread = null){
+    public function newThreadView($url, $threadId = null,$thread = null){
         if($thread != null){
             $summary = $thread['ThreadName'];
             $buttonValue = "Edit";
             $textArea = "";
-            $inputField = "<input type='hidden' value='$thredId' name='threadId'>";
+            $inputField = "<input type='hidden' value='$threadId' name='threadId'>";
             $name = $this->navigationView->getAlterThreadNameValue();
         }
         else{
@@ -35,6 +36,7 @@ class ThreadView{
         }
         $ret = "
         <a href='$url'>Back</a>
+        <p>$this->message</p>
         <form method='post' action='?' id='threadForm'>
             Thread name: <input type='text' name='name' value='$summary'>
             <input type='submit' value='$buttonValue' name='$name'>
@@ -88,6 +90,18 @@ class ThreadView{
 
         if(isset($_POST['threadId'])){
             $this->threadId = $_POST['threadId'];
+        }
+    }
+
+    public function emptyFields($threadName, $content){
+        if($threadName === "" & $content === ""){
+            $this->message = "Thread name and post can't be empty";
+        }
+        elseif($threadName === ""){
+            $this->message = "Thread name can't be empty";
+        }
+        else{
+            $this->message = "Post can't be empty";
         }
     }
 

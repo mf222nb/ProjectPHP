@@ -16,7 +16,8 @@ require_once("./Model/ThreadRepository.php");
 require_once("./Model/PostRepository.php");
 require_once("./Model/Thread.php");
 require_once("./Model/Post.php");
-require_once('./Helpers/ServiceHelper.php');
+require_once("./Helpers/ServiceHelper.php");
+require_once("./Helpers/HelperFunctions.php");
 
 class ForumController{
     private $forumView;
@@ -29,6 +30,7 @@ class ForumController{
     private $threadRepository;
     private $postRepository;
     private $serviceHelper;
+    private $helperFunctions;
 
     public function __Construct(){
         $this->userModel = new UserModel();
@@ -41,6 +43,7 @@ class ForumController{
         $this->loginController = new LoginController($this->userModel);
         $this->registerController = new RegisterController($this->userModel);
         $this->serviceHelper = new ServiceHelper();
+        $this->helperFunctions = new HelperFunctions();
     }
 
     public function doControl(){
@@ -74,17 +77,26 @@ class ForumController{
         if($this->threadView->userPressedCreate()){
             $this->threadView->getThreadInfromation();
             $threadName = $this->threadView->getThreadName();
-            $thread = new Thread($threadName, $username);
-            $this->threadRepository->addThread($thread);
-
-            $id = $this->threadRepository->getThread($username);
             $content = $this->threadView->getContent();
-            $post = new Post($content, $id, $username);
-            $this->postRepository->addPost($post);
+            if($this->threadRepository->fieldsAreEmpty($threadName, $content)){
+                $this->threadView->emptyFields($threadName, $content);
+                return $this->threadView->newThreadView($loginUrl);
+            }
+            else{
+                $safeThreadName = $this->helperFunctions->removeHtmlTags($threadName);
+                $thread = new Thread($safeThreadName, $username);
+                $this->threadRepository->addThread($thread);
 
-            $threads = $this->threadRepository->getAllThreads();
+                $id = $this->threadRepository->getThread($username);
+                $safeContent = $this->helperFunctions->removeHtmlTags($content);
+                $time = time();
+                $post = new Post($safeContent, $id, $username, $time);
+                $this->postRepository->addPost($post);
 
-            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+                $threads = $this->threadRepository->getAllThreads();
+
+                return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+            }
         }
 
         //Om användaren vill redigera sin trådtitel så kommer man till samma vy som när man skapar en ny tråd
@@ -101,11 +113,19 @@ class ForumController{
             $this->threadView->getThreadInfromation();
             $threadName = $this->threadView->getThreadName();
             $threadId = $this->threadView->getThreadId();
-            $this->threadRepository->updateThread($threadName, $threadId);
+            if($this->threadRepository->fieldsAreEmpty($threadName)){
+                $this->forumView->emptyThreadNameField($threadName);
+                $threads = $this->threadRepository->getAllThreads();
+                return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+            }
+            else{
+                $safeThreadName = $this->helperFunctions->removeHtmlTags($threadName);
+                $this->threadRepository->updateThread($safeThreadName, $threadId);
 
-            $threads = $this->threadRepository->getAllThreads();
+                $threads = $this->threadRepository->getAllThreads();
 
-            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+                return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+            }
         }
 
         if($this->navigationView->userPressedThread()){
@@ -123,19 +143,56 @@ class ForumController{
             return $this->postView->newPostView($threadUrl, $id, $loginUrl);
         }
 
-        //Lägger till en post i en tråd
+        //Skapar en post i en tråd
         if($this->postView->userPressedCreatePost()){
             $this->postView->getPostInformation();
             $id = $this->postView->getThreadId();
             $content = $this->postView->getContent();
             $user = $this->userModel->getUsername();
+            $time = time();
+            if($this->postRepository->fieldAreEmpty($content)){
+                $this->postView->emptyField($content);
+                return $this->postView->newPostView($threadUrl, $id, $loginUrl);
+            }
+            else{
+                $safeContent = $this->helperFunctions->removeHtmlTags($content);
+                $post = new Post($safeContent, $id, $user, $time);
+                $this->postRepository->addPost($post);
 
-            $post = new Post($content, $id, $user);
-            $this->postRepository->addPost($post);
+                $posts = $this->postRepository->getThreadPost($id);
 
-            $posts = $this->postRepository->getThreadPost($id);
+                return $this->threadView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
+            }
+        }
 
-            return $this->threadView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
+        //När man vill redigera en post kommer man till samma vy som man använder när man skapar en post
+        if($this->threadView->userPressedEditPost()){
+            $urlPath = $this->forumView->getUrl();
+            $id = $this->forumView->getThreadId($urlPath);
+            $post = $this->postRepository->getSinglePost($id);
+
+            return $this->postView->newPostView($threadUrl, $id, $loginUrl, $post);
+        }
+
+        //Redigerar en post
+        if($this->postView->userPressedAlterPost()){
+            $this->postView->getPostInformation();
+            $content = $this->postView->getContent();
+            $id = $this->postView->getThreadId();
+            if($this->postRepository->fieldAreEmpty($content)){
+                $this->forumView->emptyField($content);
+                $threads = $this->threadRepository->getAllThreads();
+                return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+            }
+            else{
+                $safeContent = $this->helperFunctions->removeHtmlTags($content);
+                $time = time();
+                $this->postRepository->updatePost($safeContent, $id, $time);
+
+                $threads = $this->threadRepository->getAllThreads();
+
+                return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
+            }
         }
 
         //Frågar om man är säker att man vill ta bort en post
@@ -161,27 +218,6 @@ class ForumController{
             $threadId = $this->forumView->getThreadId($urlPath);
             $this->postRepository->deleteAllPostsFromThread($threadId);
             $this->threadRepository->deleteThread($threadId);
-
-            $threads = $this->threadRepository->getAllThreads();
-
-            return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
-        }
-
-        //När man vill redigera en post kommer man till samma vy som man använder när man skapar en post
-        if($this->threadView->userPressedEditPost()){
-            $urlPath = $this->forumView->getUrl();
-            $id = $this->forumView->getThreadId($urlPath);
-            $post = $this->postRepository->getSinglePost($id);
-
-            return $this->postView->newPostView($threadUrl, $id, $loginUrl, $post);
-        }
-
-        //Redigerar en post
-        if($this->postView->userPressedAlterPost()){
-            $this->postView->getPostInformation();
-            $content = $this->postView->getContent();
-            $id = $this->postView->getThreadId();
-            $this->postRepository->updatePost($content, $id);
 
             $threads = $this->threadRepository->getAllThreads();
 

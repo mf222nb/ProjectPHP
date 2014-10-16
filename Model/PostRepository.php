@@ -12,6 +12,7 @@ class PostRepository extends Repository{
     private static $threadId = 'ThreadId';
     private static $user = 'User';
     private static $postId = 'PostId';
+    private static $time = 'Time';
 
     private $postList;
 
@@ -23,8 +24,8 @@ class PostRepository extends Repository{
 
     public function addPost(Post $post){
         try{
-            $sql = "INSERT INTO $this->dbTable (" . self::$content . ", " . self::$threadId . ", " . self::$user . " ) VALUES (?, ?, ?)";
-            $params = array($post->getContent(), $post->getThreadId(), $post->getUser());
+            $sql = "INSERT INTO $this->dbTable (" . self::$content . ", " . self::$threadId . ", " . self::$user . " ,". self::$time ." ) VALUES (?, ?, ?, ?)";
+            $params = array($post->getContent(), $post->getThreadId(), $post->getUser(), $post->getTime());
 
             $query = $this->db->prepare($sql);
             $query->execute($params);
@@ -48,9 +49,10 @@ class PostRepository extends Repository{
                 $content = $post['Content'];
                 $threadId = $post['ThreadId'];
                 $user = $post['User'];
+                $time = $post['Time'];
                 $postId = $post['PostId'];
 
-                $posts = new Post($content, $threadId, $user, $postId);
+                $posts = new Post($content, $threadId, $user, $time, $postId);
 
                 $this->postList[] = $posts;
             }
@@ -105,10 +107,10 @@ class PostRepository extends Repository{
         }
     }
 
-    public function updatePost($content, $id){
+    public function updatePost($content, $id, $time){
         try{
-            $sql = "UPDATE $this->dbTable SET ". self::$content ." = ? WHERE ". self::$postId." = ?";
-            $params = array($content, $id);
+            $sql = "UPDATE $this->dbTable SET ". self::$content ." = ?, " . self::$time . " = ? WHERE ". self::$postId." = ?";
+            $params = array($content, $id, $time);
 
             $query = $this->db->prepare($sql);
             $query->execute($params);
@@ -116,5 +118,12 @@ class PostRepository extends Repository{
         catch(PDOException $e){
 
         }
+    }
+
+    public function fieldAreEmpty($content){
+        if(empty($content)){
+            return true;
+        }
+        return false;
     }
 }

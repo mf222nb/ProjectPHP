@@ -13,13 +13,15 @@ class ThreadRepository extends Repository{
     private static $name = 'ThreadName';
     private static $user = 'User';
     private static $threadId = 'ThreadId';
+    private static $time = 'Time';
 
     private $idArray;
     private $threadList;
 
     public function __construct(){
         $this->db = $this->connection();
-        $this -> dbTable = 'thread';
+        $this->dbTable = 'thread';
+        $this->dbTable2 = 'post';
         $this->idArray = array();
         $this->threadList = array();
     }
@@ -81,7 +83,11 @@ class ThreadRepository extends Repository{
 
     public function getAllThreads(){
         try{
-            $sql = "SELECT * FROM $this->dbTable";
+            $sql = "SELECT * FROM $this->dbTable INNER JOIN (SELECT $this->dbTable2.".self::$threadId.", MAX(".self::$time.")
+                    AS latest FROM $this->dbTable2
+                    GROUP BY $this->dbTable2.".self::$threadId.") r
+                    ON $this->dbTable.".self::$threadId." = r.".self::$threadId."
+                    ORDER BY latest DESC";
 
             $query = $this->db->prepare($sql);
             $query->execute();
@@ -129,5 +135,18 @@ class ThreadRepository extends Repository{
         catch(PDOException $e){
 
         }
+    }
+
+    public function fieldsAreEmpty($threadName, $content = null){
+        if(empty($threadName) & empty($content)){
+            return true;
+        }
+        if(empty($threadName)){
+            return true;
+        }
+        if(empty($content)){
+            return true;
+        }
+        return false;
     }
 }

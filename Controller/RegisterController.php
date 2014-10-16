@@ -84,6 +84,9 @@ class RegisterController {
             catch(UsernameAndPasswordToShortException $e){
                 $this->registerUserView->usernameAndPasswordToShortMessage();
             }
+            catch(UsernameToLongException $e){
+                $this->registerUserView->usernametoLongMessage();
+            }
         }
         $ret = $this->registerUserView->registerUserView();
 

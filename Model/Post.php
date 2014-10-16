@@ -11,11 +11,13 @@ class Post{
     private $threadId;
     private $user;
     private $postId;
+    private $time;
 
-    public function __construct($content, $threadId, $user, $postId = null){
+    public function __construct($content, $threadId, $user, $time, $postId = null){
         $this->content = $content;
         $this->threadId = $threadId;
         $this->user = $user;
+        $this->time = $time;
         $this->postId = $postId;
     }
 
@@ -29,6 +31,10 @@ class Post{
 
     public function getUser(){
         return $this->user;
+    }
+
+    public function getTime(){
+        return $this->time;
     }
 
     public function getPostId(){

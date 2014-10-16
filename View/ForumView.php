@@ -129,6 +129,18 @@ class ForumView{
         $this->message = $message;
     }
 
+    public function emptyField($content){
+        if($content === ""){
+            $this->message = "Post can't be empty";
+        }
+    }
+
+    public function emptyThreadNameField($threadName){
+        if($threadName === ""){
+            $this->message = "Thread name can't be empty";
+        }
+    }
+
     public function getUrl(){
         $request_path = $_SERVER['REQUEST_URI'];
         $path = explode("/", $request_path); // splitting the path

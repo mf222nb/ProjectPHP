@@ -12,6 +12,7 @@ class PostView{
     private $content;
     private $threadId;
     private $navigationView;
+    private $message;
 
     public function __construct(){
         $this->navigationView = new NavigationView();
@@ -32,6 +33,7 @@ class PostView{
         }
         $ret = "
         <a href='$backUrl'>Back</a>
+        <p>$this->message</p>
         <p><textarea name='content' form='postForm'>$summary</textarea></p>
         <form method='post' action='?' id='postForm'>
             <input type='hidden' name='threadId' value='$id'>
@@ -50,6 +52,12 @@ class PostView{
             $this->threadId = $_POST['threadId'];
         }
         return false;
+    }
+
+    public function emptyField($content){
+        if($content === ""){
+            $this->message = "Post can't be empty";
+        }
     }
 
     public function userPressedCreatePost(){
