@@ -32,8 +32,9 @@ class UserModel extends Repository{
 
     //Om användaren väljer att logga ut så tas sessionen bort.
     public function LogOut(){
-        if(isset($_SESSION["ValidLogin"])){
+        if(isset($_SESSION["ValidLogin"]) & isset($_SESSION['UserAgent'])){
             unset($_SESSION["ValidLogin"]);
+            unset($_SESSION["UserAgent"]);
         }
         return $this->authenticatedUser = false;
     }

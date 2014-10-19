@@ -33,23 +33,24 @@ class ForumView{
                 $update = "";
                 $delete = "";
             }
-            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> ". $thread->getUser() ." $update $delete</div>";
+            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> $update $delete<div>Created by: ". $thread->getUser() ."</div></div>";
         }
 
         if($authenticated === true){
             $side = "<h3>$username is logged in</h3>
-                     <a href='?thread'>New thread</a>
-                     <a href='$signOutUrl'>Log Out</a>";
+                     <div><a href='?thread'>New thread</a></div>
+                     <div><a href='$signOutUrl'>Log Out</a></div>";
         }
         else{
-            $side = "<a href='?login'>Login</a>
-                    <a href='?register'>Register User</a>";
+            $side = "<div><a href='?login'>Login</a>
+                    <a href='?register'>Register User</a></div>";
         }
 
         $ret = "
         <p>$this->message</p>
         $side
-        <p>$html</p>
+        <br>
+        <div>$html</div>
         ";
 
         return $ret;

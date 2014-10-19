@@ -63,7 +63,7 @@ class ThreadView{
                 $delete = "";
                 $update = "";
             }
-            $html .= "<div>". $post->getContent() ." " . $post->getUser() . " $update $delete</div>";
+            $html .= "<div>". $post->getContent() ." $update $delete <div>Created by: " . $post->getUser() . " Created: ". gmdate('Y-m-d\T H:i', $post->getTime()) ."</div></div>";
         }
         if($authenticated === true){
             $side = "<a href='$loginUrl'>Back</a>
