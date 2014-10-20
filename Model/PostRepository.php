@@ -81,10 +81,10 @@ class PostRepository extends Repository{
         }
     }
 
-    public function deletePost($id){
+    public function deletePost($id, $username){
         try{
-            $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ?";
-            $params = array($id);
+            $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ? AND ". self::$user . " = ?";
+            $params = array($id, $username);
 
             $query = $this->db->prepare($sql);
             $query->execute($params);

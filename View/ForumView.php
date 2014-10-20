@@ -33,24 +33,24 @@ class ForumView{
                 $update = "";
                 $delete = "";
             }
-            $html .= "<div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a> $update $delete<div>Created by: ". $thread->getUser() ."</div></div>";
+            $html .= "<div class='ThreadsDiv'><div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a><div class='UserDiv'>Created by: ". $thread->getUser() ."</div></div> <div>$update $delete</div></div>";
         }
 
         if($authenticated === true){
-            $side = "<h3>$username is logged in</h3>
-                     <div><a href='?thread'>New thread</a></div>
-                     <div><a href='$signOutUrl'>Log Out</a></div>";
+            $side = "<header>
+                     <h3>User: $username</h3>
+                     <div class='headerDiv'><a href='?thread'>New thread</a></div>
+                     <div><a href='$signOutUrl'>Log Out</a></div></header>";
         }
         else{
-            $side = "<div><a href='?login'>Login</a>
-                    <a href='?register'>Register User</a></div>";
+            $side = "<header><div><a href='?login'>Login</a>
+                     <a href='?register'>Register User</a></div></header>";
         }
 
         $ret = "
-        <p>$this->message</p>
+        $this->message
         $side
-        <br>
-        <div>$html</div>
+        <div class='mainDiv'>$html</div>
         ";
 
         return $ret;
@@ -123,23 +123,23 @@ class ForumView{
     }
 
     public function userAddedToDataBaseMessage(){
-        $this->message = "Register of new user was successfull";
-    }
-
-    public function setMessage($message){
-        $this->message = $message;
+        $this->message = "<p class='success'>Register of new user was successfull</p>";
     }
 
     public function emptyField($content){
         if($content === ""){
-            $this->message = "Post can't be empty";
+            $this->message = "<p class='error'>Post can't be empty</p>";
         }
     }
 
     public function emptyThreadNameField($threadName){
         if($threadName === ""){
-            $this->message = "Thread name can't be empty";
+            $this->message = "<p class='error'>Thread name can't be empty</p>";
         }
+    }
+
+    public function setMessage($message){
+        $this->message = $message;
     }
 
     public function getUrl(){

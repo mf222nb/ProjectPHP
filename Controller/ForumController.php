@@ -85,16 +85,16 @@ class ForumController{
             else{
                 $safeThreadName = $this->helperFunctions->removeHtmlTags($threadName);
                 $thread = new Thread($safeThreadName, $username);
-                $this->threadRepository->addThread($thread);
+                $id = $this->threadRepository->addThread($thread);
 
-                $id = $this->threadRepository->getThread($username);
                 $safeContent = $this->helperFunctions->removeHtmlTags($content);
                 $time = time();
                 $post = new Post($safeContent, $id, $username, $time);
                 $this->postRepository->addPost($post);
 
                 $threads = $this->threadRepository->getAllThreads();
-
+                $message = $this->threadView->createThreadMessage();
+                $this->forumView->setMessage($message);
                 return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
             }
         }
@@ -113,7 +113,7 @@ class ForumController{
             $this->threadView->getThreadInfromation();
             $threadName = $this->threadView->getThreadName();
             $threadId = $this->threadView->getThreadId();
-            if($this->threadRepository->fieldsAreEmpty($threadName)){
+            if($this->threadRepository->fieldAreEmpty($threadName)){
                 $this->forumView->emptyThreadNameField($threadName);
                 $threads = $this->threadRepository->getAllThreads();
                 return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
@@ -123,6 +123,8 @@ class ForumController{
                 $this->threadRepository->updateThread($safeThreadName, $threadId);
 
                 $threads = $this->threadRepository->getAllThreads();
+                $message = $this->threadView->threadAlterMessage();
+                $this->forumView->setMessage($message);
 
                 return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
             }
@@ -160,6 +162,8 @@ class ForumController{
                 $this->postRepository->addPost($post);
 
                 $posts = $this->postRepository->getThreadPost($id);
+                $message = $this->postView->createPostMessage();
+                $this->threadView->setMessage($message);
 
                 return $this->threadView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
             }
@@ -190,7 +194,8 @@ class ForumController{
                 $this->postRepository->updatePost($safeContent, $id, $time);
 
                 $threads = $this->threadRepository->getAllThreads();
-
+                $message = $this->postView->alterPostMessage();
+                $this->forumView->setMessage($message);
                 return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
             }
         }
@@ -206,10 +211,12 @@ class ForumController{
         if($this->forumView->userPressedYes()){
             $this->forumView->getPostId();
             $id = $this->forumView->getId();
-            $this->postRepository->deletePost($id);
+            $username = $this->userModel->getUsername();
+            $this->postRepository->deletePost($id, $username);
 
             $threads = $this->threadRepository->getAllThreads();
-
+            $message = $this->postView->deletedPostMessage();
+            $this->forumView->setMessage($message);
             return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
         }
 
@@ -220,7 +227,8 @@ class ForumController{
             $this->threadRepository->deleteThread($threadId);
 
             $threads = $this->threadRepository->getAllThreads();
-
+            $message = $this->threadView->removeThreadMessage();
+            $this->forumView->setMessage($message);
             return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
         }
 

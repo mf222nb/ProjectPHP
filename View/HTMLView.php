@@ -12,6 +12,7 @@ class HTMLView{
         echo "<!DOCTYPE html>
               <html>
               <head>
+                <link rel='stylesheet' type='text/css' href='./Style/main.css'>
                 <meta charset = 'UTF-8'>
               </head>
               <body>

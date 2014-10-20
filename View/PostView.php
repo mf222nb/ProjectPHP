@@ -32,13 +32,13 @@ class PostView{
             $name = $this->navigationView->getCreatePostNameValue();
         }
         $ret = "
-        <a href='$backUrl'>Back</a>
-        <p>$this->message</p>
-        <p><textarea name='content' form='postForm'>$summary</textarea></p>
+        <header><a href='$backUrl'>Back</a></header>
+        $this->message
+        <div class='mainDiv'><textarea name='content' form='postForm' class='Area'>$summary</textarea>
         <form method='post' action='?' id='postForm'>
             <input type='hidden' name='threadId' value='$id'>
-            <input type='submit' value='$buttonValue' name='$name'>
-        </form>";
+            <p class='submit'><input type='submit' value='$buttonValue' name='$name'></p>
+        </form></div>";
 
         return $ret;
     }
@@ -56,8 +56,20 @@ class PostView{
 
     public function emptyField($content){
         if($content === ""){
-            $this->message = "Post can't be empty";
+            $this->message = "<p class='error'>Post can't be empty</p>";
         }
+    }
+
+    public function createPostMessage(){
+        return "<p class='success'>The post was created</p>";
+    }
+
+    public function alterPostMessage(){
+        return "<p class='success'>The post was edited</p>";
+    }
+
+    public function deletedPostMessage(){
+        return "<p class='success'>The post was deleted</p>";
     }
 
     public function userPressedCreatePost(){

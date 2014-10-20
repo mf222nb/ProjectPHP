@@ -80,7 +80,7 @@ class UserModel extends Repository{
             $query->execute($params);
         }
         catch(PDOException $e){
-            die("Ett oväntat fel har uppstått");
+
         }
     }
 
@@ -182,7 +182,7 @@ class UserModel extends Repository{
             $query->execute($params);
         }
         catch(PDOException $e){
-            die("Ett oväntat fel har uppstått");
+
         }
     }
 
@@ -201,7 +201,7 @@ class UserModel extends Repository{
             }
         }
         catch(PDOException $e){
-            die("Ett oväntat fel har uppstått");
+
         }
     }
 }

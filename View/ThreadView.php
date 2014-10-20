@@ -30,20 +30,21 @@ class ThreadView{
         else{
             $summary = "";
             $buttonValue = "Create new thread";
-            $textArea = "<textarea name='content' form='threadForm'></textarea>";
+            $textArea = "<textarea name='content' class='Area'></textarea>";
             $inputField = "";
             $name = $this->navigationView->getCreateThreadNameValue();
         }
         $ret = "
-        <a href='$url'>Back</a>
-        <p>$this->message</p>
-        <form method='post' action='?' id='threadForm'>
-            Thread name: <input type='text' name='name' value='$summary'>
-            <input type='submit' value='$buttonValue' name='$name'>
+        <header><a href='$url'>Back</a></header>
+        $this->message
+        <form method='post' action='?' class='mainDiv'>
+            <p class='submit'>Thread name: <input type='text' name='name' value='$summary' class='ThreadName'></p>
+            <p>$textArea</p>
+            <input type='submit' value='$buttonValue' name='$name' class='submit'>
             $inputField
         </form>
 
-        $textArea";
+        ";
 
         return $ret;
     }
@@ -63,18 +64,21 @@ class ThreadView{
                 $delete = "";
                 $update = "";
             }
-            $html .= "<div>". $post->getContent() ." $update $delete <div>Created by: " . $post->getUser() . " Created: ". gmdate('Y-m-d\T H:i', $post->getTime()) ."</div></div>";
+            $html .= "<div class='PostDiv'>". $post->getContent() ." <div><div class='buttons'>$update $delete</div> <div class='UserDiv'>Created by: " . $post->getUser() . "</div> <div class='CreatedDiv'>Created: ". gmdate('Y-m-d\T H:i', $post->getTime()) ."</div></div></div>";
         }
         if($authenticated === true){
-            $side = "<a href='$loginUrl'>Back</a>
-                     <a href='?create_post=$id'>Create new post</a>";
+            $side = "<header>
+                     <h3>User: $username</h3>
+                     <a href='$loginUrl'>Back</a>
+                     <a href='?create_post=$id'>Create new post</a></header>";
         }
         else{
             $side = "<a href='$indexUrl'>Back</a>";
         }
         $ret = "
         $side
-        <p>$html</p>";
+        $this->message
+        <div class='mainDiv'>$html</div>";
 
         return $ret;
     }
@@ -95,14 +99,34 @@ class ThreadView{
 
     public function emptyFields($threadName, $content){
         if($threadName === "" & $content === ""){
-            $this->message = "Thread name and post can't be empty";
+            $this->message = "<p class='error'>Thread name and post can't be empty</p>";
         }
         elseif($threadName === ""){
-            $this->message = "Thread name can't be empty";
+            $this->message = "<p class='error'>Thread name can't be empty</p>";
         }
         else{
-            $this->message = "Post can't be empty";
+            $this->message = "<p class='error'>Post can't be empty</p>";
         }
+    }
+
+    public function createThreadMessage(){
+        return "<p class='success'>New thread and post was created</p>";
+    }
+
+    public function threadAlterMessage(){
+        return "<p class='success'>Thread titel was edited</p>";
+    }
+
+    public function removeThreadMessage(){
+        return "<p class='success'>Thread was removed</p>";
+    }
+
+    public function ThreadNameToLongMessage(){
+        $this->message = "<p class='error'>Thread name is to long</p>";
+    }
+
+    public function setMessage($message){
+        $this->message = $message;
     }
 
     public function userPressedCreate(){

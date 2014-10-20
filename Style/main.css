@@ -1,0 +1,92 @@
+body{
+    width: 800px;
+    margin: auto;
+}
+
+header{
+    height: 25px;
+    padding-top: 5px;
+}
+
+header h3{
+    float: right;
+}
+
+h3{
+    height: 20px;
+    margin: 0;
+}
+
+.mainDiv{
+    width: 796px;
+    margin: auto;
+    border: 2px solid;
+    background-color: ghostwhite;
+}
+
+.ThreadsDiv{
+    padding-top: 10px;
+    background-color: ghostwhite;
+    height: 50px;
+}
+
+.ThreadsDiv:nth-child(even) {
+    background-color: lightgray;
+}
+
+.PostDiv{
+    padding-top: 10px;
+    white-space: pre-wrap;
+    max-width: 800px;
+    background-color: ghostwhite;
+}
+
+.PostDiv:nth-child(even){
+    background-color: lightgray;
+}
+
+.UserDiv{
+    float: right;
+    margin-right: 5px;
+    font-style: italic;
+}
+
+.CreatedDiv{
+    text-align: right;
+    margin-right: 5px;
+    font-style: italic;
+}
+
+.buttons{
+    float: left;
+}
+
+.headerDiv{
+    float: left;
+    margin-right: 5px;
+}
+
+.Area{
+    display: block;
+    width: 750px;
+    margin: auto;
+    height: 400px;
+    resize: none;
+}
+
+.submit{
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.ThreadName{
+    width: 400px;
+}
+
+.error{
+    color: red;
+}
+
+.success{
+    color: green;
+}

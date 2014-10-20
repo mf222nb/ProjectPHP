@@ -15,7 +15,6 @@ class ThreadRepository extends Repository{
     private static $threadId = 'ThreadId';
     private static $time = 'Time';
 
-    private $idArray;
     private $threadList;
 
     public function __construct(){
@@ -33,34 +32,11 @@ class ThreadRepository extends Repository{
 
             $query = $this->db->prepare($sql);
             $query->execute($params);
+
+            return $this->db->lastInsertId();
         }
         catch(PDOException $e){
-            var_dump($e->getMessage());
-        }
-    }
 
-    public function getThread($user){
-        try{
-            $sql = "SELECT * FROM $this->dbTable WHERE ". self::$user. " = ?";
-            $params = array($user);
-
-            $query = $this->db->prepare($sql);
-            $query->execute($params);
-
-            $result = $query->fetchAll();
-
-            foreach($result as $id){
-                $id = $id['ThreadId'];
-
-                $this->idArray[] = $id;
-            }
-
-            $id = end($this->idArray);
-
-            return $id;
-        }
-        catch(PDOException $e){
-            var_dump($e->getMessage());
         }
     }
 
@@ -107,7 +83,7 @@ class ThreadRepository extends Repository{
             return $this->threadList;
         }
         catch(PDOException $e){
-            var_dump($e->getMessage());
+
         }
     }
 
@@ -137,7 +113,7 @@ class ThreadRepository extends Repository{
         }
     }
 
-    public function fieldsAreEmpty($threadName, $content = null){
+    public function fieldsAreEmpty($threadName, $content){
         if(empty($threadName) & empty($content)){
             return true;
         }
@@ -145,6 +121,20 @@ class ThreadRepository extends Repository{
             return true;
         }
         if(empty($content)){
+            return true;
+        }
+        return false;
+    }
+
+    public function invalidLength($threadName){
+        if(mb_strlen($threadName) > 100){
+            return true;
+        }
+        return false;
+    }
+
+    public function fieldAreEmpty($threadName){
+        if(empty($threadName)){
             return true;
         }
         return false;
