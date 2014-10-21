@@ -15,21 +15,21 @@ class RegisterUserView {
 
     public function registerUserView(){
         $ret = "
-                <a href='?'>Back</a>
-                <h3>Ej inloggad, Registrerar användare</h3>
-                <form method='POST'>
+                <header><h3>Register user</h3>
+                <a href='?' class='button'>Back</a></header>
+                <form method='POST' class='mainDiv'>
                     <fieldset>
-                    <p>$this->message</p>
-                    <p>$this->message2</p>
-                    <legend>Registrera ny användare - Skriv in användarnamn och lösenord</legend>
-                            <label for='usernamename'>Namn</label>
+                    $this->message
+                    $this->message2
+                    <legend>Register new user - write username and password</legend>
+                            <label for='usernamename'>Username</label>
                             <input type='text' id='username' name='username' value='$this->username'>
-                            <label for='pass'>Lösenord</label>
+                            <label for='pass'>Password</label>
                             <input type='password' id='pass' name='password'>
-                            <label for='repeatpass'>Bekräfta lösenord</label>
+                            <label for='repeatpass'>Repeat password</label>
                             <input type='password' id='repeatpass' name='repeatpass'>
                     </fieldset>
-                    <input type='submit' value='Registrera' name='submit'>
+                    <input type='submit' value='Register' name='submit' class='registerButton'>
                 </form>
                 ";
 
@@ -70,32 +70,32 @@ class RegisterUserView {
     }
 
     public function usernameToShortMessage(){
-        $this->message = "Username is to short. Least 3 characters";
+        $this->message = "<p class='error'>Username is to short. Least 3 characters</p>";
     }
 
     public function passwordToShortMessage(){
-        $this->message2 = "Password is to short. Least 6 characters";
+        $this->message2 = "<p class='error'>Password is to short. Least 6 characters</p>";
     }
 
     public function passwordDontMatchMessage(){
-        $this->message2 = "Password don't match.";
+        $this->message2 = "<p class='error'>Password don't match</p>";
     }
 
     public function usernameAlreadyExistMessage(){
-        $this->message = "Username is already taken.";
+        $this->message = "<p class='error'>Username is already taken</p>";
     }
 
     public function usernameContainInvalidCharacterMessage($e){
         $this->username = $e;
-        $this->message = "Username contains invalid characters";
+        $this->message = "<p class='error'>Username contains invalid characters</p>";
     }
 
     public function usernameAndPasswordToShortMessage(){
-        $this->message = "Username is to short. Least 3 characters";
-        $this->message2 = "Password is to short. Least 6 characters";
+        $this->message = "<p class='error'>Username is to short. Least 3 characters</p>";
+        $this->message2 = "<p class='error'>Password is to short. Least 6 characters</p>";
     }
 
     public function usernametoLongMessage(){
-        $this->message = "Username is to long. Max 40 characters";
+        $this->message = "<p class='error'>Username is to long. Max 40 characters</p>";
     }
 }

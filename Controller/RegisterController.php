@@ -13,6 +13,7 @@ require_once("./Helpers/PasswordToShortException.php");
 require_once("./Helpers/PasswordDontMatchException.php");
 require_once("./Helpers/UsernameContainsInvalidCharactersException.php");
 require_once("./Helpers/UsernameAndPasswordToShortException.php");
+require_once("./Helpers/UsernameToLongException.php");
 require_once('./Helpers/ServiceHelper.php');
 require_once("./Model/User.php");
 require_once("./View/ForumView.php");

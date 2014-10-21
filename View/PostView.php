@@ -32,13 +32,13 @@ class PostView{
             $name = $this->navigationView->getCreatePostNameValue();
         }
         $ret = "
-        <header><a href='$backUrl'>Back</a></header>
-        $this->message
-        <div class='mainDiv'><textarea name='content' form='postForm' class='Area'>$summary</textarea>
-        <form method='post' action='?' id='postForm'>
+        <header><a href='$backUrl' class='button'>Back</a></header>
+        <form method='post' action='?' class='mainDiv'>
+            $this->message
+            <textarea name='content' class='Area'>$summary</textarea>
             <input type='hidden' name='threadId' value='$id'>
             <p class='submit'><input type='submit' value='$buttonValue' name='$name'></p>
-        </form></div>";
+        </form>";
 
         return $ret;
     }

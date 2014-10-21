@@ -78,8 +78,13 @@ class ForumController{
             $this->threadView->getThreadInfromation();
             $threadName = $this->threadView->getThreadName();
             $content = $this->threadView->getContent();
-            if($this->threadRepository->fieldsAreEmpty($threadName, $content)){
-                $this->threadView->emptyFields($threadName, $content);
+            if($this->threadRepository->fieldsAreEmpty($threadName, $content)|| $this->threadRepository->invalidLength($threadName)){
+                if($this->threadRepository->invalidLength($threadName)){
+                    $this->threadView->ThreadNameToLongMessage();
+                }
+                else{
+                    $this->threadView->emptyFields($threadName, $content);
+                }
                 return $this->threadView->newThreadView($loginUrl);
             }
             else{

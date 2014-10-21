@@ -6,6 +6,7 @@ body{
 header{
     height: 25px;
     padding-top: 5px;
+    background-color: grey;
 }
 
 header h3{
@@ -15,12 +16,14 @@ header h3{
 h3{
     height: 20px;
     margin: 0;
+    color: ghostwhite;
 }
 
 .mainDiv{
     width: 796px;
     margin: auto;
     border: 2px solid;
+    border-radius: 2px 2px 2px 2px;
     background-color: ghostwhite;
 }
 
@@ -59,6 +62,44 @@ h3{
 
 .buttons{
     float: left;
+    margin-top: 7px;
+}
+
+.button{
+    text-decoration: none;
+    color: ghostwhite;
+    background-color: #333231;
+    padding: 5px;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.editButton{
+    text-decoration: none;
+    color: ghostwhite;
+    background-color: #333231;
+    padding: 3px;
+    border-radius: 2px 2px 2px 2px;
+}
+
+.space{
+    margin-top: 5px;
+}
+
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover{
+    color: #575654;
+}
+
+.button:hover{
+    background-color: #575654;
+}
+
+.editButton:hover{
+    background-color: #575654;
 }
 
 .headerDiv{
@@ -77,6 +118,12 @@ h3{
 .submit{
     margin-left: 20px;
     margin-bottom: 5px;
+}
+
+
+.registerButton{
+    margin-left: 2px;
+    margin-top: 5px;
 }
 
 .ThreadName{

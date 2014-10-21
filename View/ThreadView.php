@@ -35,9 +35,9 @@ class ThreadView{
             $name = $this->navigationView->getCreateThreadNameValue();
         }
         $ret = "
-        <header><a href='$url'>Back</a></header>
-        $this->message
+        <header><a href='$url' class='button'>Back</a></header>
         <form method='post' action='?' class='mainDiv'>
+            $this->message
             <p class='submit'>Thread name: <input type='text' name='name' value='$summary' class='ThreadName'></p>
             <p>$textArea</p>
             <input type='submit' value='$buttonValue' name='$name' class='submit'>
@@ -57,8 +57,8 @@ class ThreadView{
             $id = $post->getThreadId();
             $name = $post->getUser();
             if($username === $name || $username === "Admin"){
-                $delete = "<a href='?delete_post=". $post->getPostId() ."'>Delete post</a>";
-                $update = "<a href='?edit_post=". $post->getPostId() ."'>Edit</a>";
+                $delete = "<a href='?delete_post=". $post->getPostId() ."' class='editButton'>Delete post</a>";
+                $update = "<a href='?edit_post=". $post->getPostId() ."' class='editButton'>Edit</a>";
             }
             else {
                 $delete = "";
@@ -69,11 +69,11 @@ class ThreadView{
         if($authenticated === true){
             $side = "<header>
                      <h3>User: $username</h3>
-                     <a href='$loginUrl'>Back</a>
-                     <a href='?create_post=$id'>Create new post</a></header>";
+                     <a href='$loginUrl' class='button'>Back</a>
+                     <a href='?create_post=$id' class='button'>Create new post</a></header>";
         }
         else{
-            $side = "<a href='$indexUrl'>Back</a>";
+            $side = "<a href='$indexUrl' class='button'>Back</a>";
         }
         $ret = "
         $side

@@ -22,34 +22,37 @@ class ForumView{
         foreach($threads as $thread){
             $name = $thread->getUser();
             if($username === "Admin"){
-                $update = "<a href='?edit_thread=". $thread->getThreadId() ."'>Edit</a>";
-                $delete = "<a href='?remove_thread=". $thread->getThreadId() ."'>Delete</a>";
+                $update = "<a href='?edit_thread=". $thread->getThreadId() ."' class='editButton'>Edit</a>";
+                $delete = "<a href='?remove_thread=". $thread->getThreadId() ."' class='editButton'>Delete</a>";
             }
             elseif($username === $name){
-                $update = "<a href='?edit_thread=". $thread->getThreadId() ."'>Edit</a>";
+                $update = "<a href='?edit_thread=". $thread->getThreadId() ."' class='editButton'>Edit</a>";
                 $delete = "";
             }
             else{
                 $update = "";
                 $delete = "";
             }
-            $html .= "<div class='ThreadsDiv'><div><a href='$threadUrl=". $thread->getThreadId()."'>". $thread->getThreadName()."</a><div class='UserDiv'>Created by: ". $thread->getUser() ."</div></div> <div>$update $delete</div></div>";
+            $html .= "<div class='ThreadsDiv'><div><a href='$threadUrl=". $thread->getThreadId()."' class='link'>". $thread->getThreadName()."</a><div class='UserDiv'>Created by: ". $thread->getUser() ."</div></div> <div class='space'>$update $delete</div></div>";
         }
 
         if($authenticated === true){
             $side = "<header>
-                     <h3>User: $username</h3>
-                     <div class='headerDiv'><a href='?thread'>New thread</a></div>
-                     <div><a href='$signOutUrl'>Log Out</a></div></header>";
+                     <h3>User online: $username</h3>
+                     <div class='headerDiv'><a href='?thread' class='button'>New thread</a></div>
+                     <div><a href='$signOutUrl' class='button'>Log Out</a></div>
+                     </header>";
         }
         else{
-            $side = "<header><div><a href='?login'>Login</a>
-                     <a href='?register'>Register User</a></div></header>";
+            $side = "<header>
+                     <h3>Log in/Register</h3>
+                     <div><a href='?login' class='button'>Log in</a>
+                     <a href='?register' class='button'>Register User</a></div></header>";
         }
 
         $ret = "
-        $this->message
         $side
+        $this->message
         <div class='mainDiv'>$html</div>
         ";
 
@@ -57,9 +60,9 @@ class ForumView{
     }
 
     public function confirmView($loginUrl, $id){
-        $ret = "<a href='$loginUrl'>Back</a>
-        <p>Are you sure you want to delete?</p>
-        <form method='post' action='?'>
+        $ret = "<header><a href='$loginUrl' class='button'>Back</a></header>
+        <form method='post' action='?' class='mainDiv'>
+            <p>Are you sure you want to delete?</p>
             <input type='hidden' name='id' value='$id'>
             <input type='submit' value='Yes' name='remove'>
         </form>";

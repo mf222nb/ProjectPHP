@@ -6,14 +6,15 @@ class LoginView{
     private $message;
 
     public function ViewLogin($indexUrl, $loggedInUrl){
-        $ret = "<a href='$indexUrl'>Back</a>
-        <h3>Not Logged in</h3>
-        <p>$this->message</p>
-        <form method='post' action='$loggedInUrl'>
+        $ret = "<header><h3>Not Logged in</h3>
+        <a href='$indexUrl' class='button'>Back</a>
+        </header>
+        $this->message
+        <form method='post' action='$loggedInUrl' class='mainDiv'>
             Username: <input type='text' name='username' value=$this->username>
             Password: <input type='password' name='password'>
             Remember me <input type='checkbox' name='check'>
-            <input type='submit' value='Logga in' name='submit'>
+            <input type='submit' value='Log in' name='submit'>
         </form>";
 
         return $ret;
@@ -47,22 +48,22 @@ class LoginView{
 
     public function failedLogIn($username, $password){
         if($username === ""){
-            $this->message = "Username is missing";
+            $this->message = "<p class='error'>Username is missing</p>";
         }
         else if($password === ""){
-            $this->message = "Password is missing";
+            $this->message = "<p class='error'>Password is missing</p>";
         }
         else{
-            $this->message = "Username and/or password is wrong";
+            $this->message = "<p class='error'>Username and/or password is wrong</p>";
         }
     }
 
     public function LogInSuccessMessage(){
-        return $this->message = "Log in was successful";
+        return $this->message = "<p class='success'>Log in was successful</p>";
     }
 
     public function logOutSuccessMessage(){
-        return $this->message = "You have now logged out";
+        return $this->message = "<p class='success'>You have now logged out</p>";
     }
 
     public function setMessage($message){

@@ -135,7 +135,7 @@ class UserModel extends Repository{
         if(mb_strlen($username) < 3){
             throw new UsernameToShortException();
         }
-        if(mb_strlen($username > 40)){
+        if(mb_strlen($username)  > 40){
             throw new UsernameToLongException();
         }
         if(preg_match($this->regExp, $username)){
