@@ -6,11 +6,11 @@ class LoginView{
     private $message;
 
     public function ViewLogin($indexUrl, $loggedInUrl){
-        $ret = "<header><h3>Not Logged in</h3>
+        $ret = "<header><h3>Not logged in</h3>
         <a href='$indexUrl' class='button'>Back</a>
         </header>
-        $this->message
         <form method='post' action='$loggedInUrl' class='mainDiv'>
+            $this->message
             Username: <input type='text' name='username' value=$this->username>
             Password: <input type='password' name='password'>
             Remember me <input type='checkbox' name='check'>

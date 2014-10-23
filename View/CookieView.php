@@ -38,15 +38,15 @@ class CookieStorage{
 
     //Meddelanden
     public function cookieSaveMessage(){
-        return $this->message = "Inloggning lyckades och vi kommer att komma ihåg dig nästa gång";
+        return $this->message = "<p class='success'>Log in was successfull and we are going to remember you next time</p>";
     }
 
     public function cookieLoadMessage(){
-        return $this->message = "Inloggning lyckades via cookies";
+        return $this->message = "<p class='success'>Log in through cookies was sucessfull</p>";
     }
 
     public function cookieModifiedMessage(){
-        return $this->message = "Felaktig information i cookie";
+        return $this->message = "<p class='error'>Wrong information in cookies</p>";
     }
 }
 

@@ -70,7 +70,7 @@ class ThreadView{
             $side = "<header>
                      <h3>User: $username</h3>
                      <a href='$loginUrl' class='button'>Back</a>
-                     <a href='?create_post=$id' class='button'>Create new post</a></header>";
+                     <a href='?create_post=$id' class='button'>New post</a></header>";
         }
         else{
             $side = "<a href='$indexUrl' class='button'>Back</a>";
