@@ -5,11 +5,12 @@
  * Date: 2014-10-06
  * Time: 16:17
  */
+require_once("./Settings.php");
 
-abstract class Repository {
-    protected $dbUsername = 'root';
-    protected $dbPassword = '';
-    protected $dbConnstring = 'mysql:host=127.0.0.1;dbname=project';
+abstract class Repository{
+    protected $dbUsername = Username;
+    protected $dbPassword = Password;
+    protected $dbConnstring = ConnectionString;
     protected $dbConnection;
     protected $dbTable;
     protected $dbTable2;

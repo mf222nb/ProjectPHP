@@ -8,7 +8,7 @@ class CookieStorage{
 
     //Sparar ner värdet från $randomString till kakan.
     public function save($string, $password){
-        $this->cookieTime = time()+120;
+        $this->cookieTime = time()+3600*24*7;
         setcookie($this->cookieName, $string, $this->cookieTime);
         setcookie($this->cookieName2, $password, $this->cookieTime);
         return $this->cookieTime;
