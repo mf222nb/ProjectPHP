@@ -19,6 +19,12 @@ class ThreadView{
         $this->navigationView = new NavigationView();
     }
 
+    /**
+     * @param $url string
+     * @param null $threadId string
+     * @param null $thread string
+     * @return string string
+     */
     public function newThreadView($url, $threadId = null,$thread = null){
         if($thread != null){
             $summary = $thread['ThreadName'];
@@ -49,6 +55,14 @@ class ThreadView{
         return $ret;
     }
 
+    /**
+     * @param $posts <List>
+     * @param $loginUrl string
+     * @param $indexUrl string
+     * @param $authenticated bool
+     * @param $username string
+     * @return string
+     */
     public function showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username){
         $html = "";
         $id = 0;
@@ -97,6 +111,10 @@ class ThreadView{
         }
     }
 
+    /**
+     * @param $threadName string
+     * @param $content string
+     */
     public function emptyFields($threadName, $content){
         if($threadName === "" & $content === ""){
             $this->message = "<p class='error'>Thread name and post can't be empty</p>";
@@ -125,6 +143,9 @@ class ThreadView{
         $this->message = "<p class='error'>Thread name is to long</p>";
     }
 
+    /**
+     * @param $message string
+     */
     public function setMessage($message){
         $this->message = $message;
     }

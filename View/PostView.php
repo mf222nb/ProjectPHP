@@ -18,6 +18,13 @@ class PostView{
         $this->navigationView = new NavigationView();
     }
 
+    /**
+     * @param $url string
+     * @param $id string
+     * @param $loginUrl string
+     * @param null $post array
+     * @return string
+     */
     public function newPostView($url, $id, $loginUrl, $post = null){
         if($post != null){
             $summary = $post['Content'];
@@ -54,6 +61,9 @@ class PostView{
         return false;
     }
 
+    /**
+     * @param $content string
+     */
     public function emptyField($content){
         if($content === ""){
             $this->message = "<p class='error'>Post can't be empty</p>";

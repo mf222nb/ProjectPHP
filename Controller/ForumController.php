@@ -225,6 +225,9 @@ class ForumController{
             return $this->forumView->forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated);
         }
 
+        //Admin är den enda som får ta bort en tråd och då hämtas id ut genom urlen och sedan kallar man på modellen
+        //kör en SQL fråga och sedan så kommer man tillbaka till vyn med alla trådar och får ett meddelande att tråden
+        //är borta.
         if($this->forumView->adminPressedRemoveThread()){
             $urlPath = $this->forumView->getUrl();
             $threadId = $this->forumView->getThreadId($urlPath);

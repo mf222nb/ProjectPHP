@@ -16,6 +16,14 @@ class ForumView{
         $this->navigationView = new NavigationView();
     }
 
+    /**
+     * @param $signOutUrl string
+     * @param $username string
+     * @param $threads <List>
+     * @param $threadUrl string
+     * @param $authenticated bool
+     * @return string
+     */
     public function forumView($signOutUrl, $username, $threads, $threadUrl, $authenticated){
         $html = "";
 
@@ -59,6 +67,11 @@ class ForumView{
         return $ret;
     }
 
+    /**
+     * @param $loginUrl string
+     * @param $id string
+     * @return string
+     */
     public function confirmView($loginUrl, $id){
         $ret = "<header><a href='$loginUrl' class='button'>Back</a></header>
         <form method='post' action='?' class='mainDiv'>
@@ -129,12 +142,18 @@ class ForumView{
         $this->message = "<p class='success'>Register of new user was successfull</p>";
     }
 
+    /**
+     * @param $content string
+     */
     public function emptyField($content){
         if($content === ""){
             $this->message = "<p class='error'>Post can't be empty</p>";
         }
     }
 
+    /**
+     * @param $threadName string
+     */
     public function emptyThreadNameField($threadName){
         if($threadName === ""){
             $this->message = "<p class='error'>Thread name can't be empty</p>";
@@ -152,6 +171,10 @@ class ForumView{
         return $last;
     }
 
+    /**
+     * @param $string string
+     * @return string
+     */
     public function getThreadId($string){
         $end = preg_replace("/[^0-9]/", "", $string);
         return $end;

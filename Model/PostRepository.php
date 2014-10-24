@@ -82,15 +82,29 @@ class PostRepository extends Repository{
     }
 
     public function deletePost($id, $username){
-        try{
-            $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ? AND ". self::$user . " = ?";
-            $params = array($id, $username);
+        if($username === "Admin"){
+            try{
+                $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ?";
+                $params = array($id);
 
-            $query = $this->db->prepare($sql);
-            $query->execute($params);
+                $query = $this->db->prepare($sql);
+                $query->execute($params);
+            }
+            catch(PDOException $e){
+
+            }
         }
-        catch(PDOException $e){
+        else{
+            try{
+                $sql = "DELETE FROM $this->dbTable WHERE ". self::$postId ." = ? AND ". self::$user . " = ?";
+                $params = array($id, $username);
 
+                $query = $this->db->prepare($sql);
+                $query->execute($params);
+            }
+            catch(PDOException $e){
+
+            }
         }
     }
 
