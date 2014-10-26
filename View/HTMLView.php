@@ -14,6 +14,7 @@ class HTMLView{
               <head>
                 <link rel='stylesheet' type='text/css' href='./Style/main.css'>
                 <meta charset = 'UTF-8'>
+                <title>Forum</title>
               </head>
               <body>
                 $body

@@ -44,7 +44,7 @@ class PostView{
             $this->message
             <textarea name='content' class='Area'>$summary</textarea>
             <input type='hidden' name='threadId' value='$id'>
-            <p class='submit'><input type='submit' value='$buttonValue' name='$name'></p>
+            <p class='pThreadName'><input type='submit' value='$buttonValue' name='$name' class='submitPost'></p>
         </form>";
 
         return $ret;

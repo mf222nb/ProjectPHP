@@ -41,7 +41,7 @@ class ForumView{
                 $update = "";
                 $delete = "";
             }
-            $html .= "<div class='ThreadsDiv'><div><a href='$threadUrl=". $thread->getThreadId()."' class='link'>". $thread->getThreadName()."</a><div class='UserDiv'>Created by: ". $thread->getUser() ."</div></div> <div class='space'>$update $delete</div></div>";
+            $html .= "<div class='ThreadsDiv'><div class='threadLink'><a href='$threadUrl=". $thread->getThreadId()."' class='link'>". $thread->getThreadName()."</a></div><div class='space'>$update $delete</div><div class='UserDiv'>Created by: ". $thread->getUser() ."</div> </div>";
         }
 
         if($authenticated === true){
@@ -172,8 +172,8 @@ class ForumView{
     }
 
     /**
-     * @param $string string
-     * @return string
+     * @param $string
+     * @return mixed
      */
     public function getThreadId($string){
         $end = preg_replace("/[^0-9]/", "", $string);

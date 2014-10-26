@@ -44,7 +44,7 @@ class ThreadView{
         <header><a href='$url' class='button'>Back</a></header>
         <form method='post' action='?' class='mainDiv'>
             $this->message
-            <p class='submit'>Thread name: <input type='text' name='name' value='$summary' class='ThreadName'></p>
+            <p class='pThreadName'>Thread name: <input type='text' name='name' value='$summary' class='ThreadName'></p>
             <p>$textArea</p>
             <input type='submit' value='$buttonValue' name='$name' class='submit'>
             $inputField
@@ -87,7 +87,8 @@ class ThreadView{
                      <a href='?create_post=$id' class='button'>New post</a></header>";
         }
         else{
-            $side = "<a href='$indexUrl' class='button'>Back</a>";
+            $side = "<header>
+                     <a href='$indexUrl' class='button'>Back</a></header>";
         }
         $ret = "
         $side

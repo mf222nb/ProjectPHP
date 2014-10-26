@@ -82,7 +82,8 @@ h3{
 }
 
 .space{
-    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: right;
 }
 
 .link{
@@ -118,8 +119,22 @@ h3{
 .submit{
     margin-left: 20px;
     margin-bottom: 5px;
+    color: ghostwhite;
+    background-color: #333231;
 }
 
+.submit:hover{
+    background-color: #575654;
+}
+
+.submitPost{
+    color: ghostwhite;
+    background-color: #333231;
+}
+
+.submitPost:hover{
+    background-color: #575654;
+}
 
 .registerButton{
     margin-left: 2px;
@@ -128,6 +143,15 @@ h3{
 
 .ThreadName{
     width: 400px;
+}
+
+.pThreadName{
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.threadLink{
+    float: left;
 }
 
 .error{

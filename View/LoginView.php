@@ -11,7 +11,7 @@ class LoginView{
         </header>
         <form method='post' action='$loggedInUrl' class='mainDiv'>
             $this->message
-            Username: <input type='text' name='username' value=$this->username>
+            Username: <input type='text' name='username' value='$this->username'>
             Password: <input type='password' name='password'>
             Remember me <input type='checkbox' name='check'>
             <input type='submit' value='Log in' name='submit'>

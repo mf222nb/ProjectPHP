@@ -8,6 +8,10 @@
 
 class HelperFunctions{
 
+    /**
+     * @param $string string
+     * @return string
+     */
     public function removeHtmlTags($string){
         $string = str_replace("<", "&lt;", $string);
         $string = str_replace(">", "&gt;", $string);

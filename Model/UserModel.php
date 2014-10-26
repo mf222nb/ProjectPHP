@@ -17,7 +17,7 @@ class UserModel extends Repository{
     public function __construct(){
         session_start();
         $this->db = $this->connection();
-        $this -> dbTable = 'user';
+        $this->dbTable = 'user';
     }
 
     //Tittar om användaren är inloggad redan med sessions eller inte.
@@ -32,14 +32,14 @@ class UserModel extends Repository{
 
     //Om användaren väljer att logga ut så tas sessionen bort.
     public function LogOut(){
-        if(isset($_SESSION["ValidLogin"]) & isset($_SESSION['UserAgent'])){
+        if(isset($_SESSION["ValidLogin"]) & isset($_SESSION["UserAgent"])){
             unset($_SESSION["ValidLogin"]);
             unset($_SESSION["UserAgent"]);
         }
         return $this->authenticatedUser = false;
     }
 
-    //Kontrollerar om kakans värde stämmer överens med randomsStrings värde.
+    //Kontrollerar om kakans värde stämmer överens med kakan som finns lagrad i databasen
     public function controlCookieValue($username, $password, $userAgent){
         try{
             $sql = "SELECT * FROM $this->dbTable WHERE ".self::$name." = ?";
@@ -95,6 +95,11 @@ class UserModel extends Repository{
         return $this->onlyPass;
     }
 
+    /**
+     * @param $passwordToCrypt string
+     * @param int $rounds
+     * @return string
+     */
     public function cryptPass($passwordToCrypt, $rounds = 9){
         //krypterar lösenordet med blowfish, har följt denna guide https://www.youtube.com/watch?v=wIRtl8CwgIc
         //returnerar det krypterade lösenordet
@@ -115,6 +120,11 @@ class UserModel extends Repository{
         // det andra är "extra saker" som killen i videon sa var bra (lite svårare att kryptera...)
     }
 
+    /**
+     * @param $inputFromUser string
+     * @param $usersHashedPassword string
+     * @return bool
+     */
     public function checkIfPasswordIstrue($inputFromUser, $usersHashedPassword){
         //vi krypterar det inmatade lösenordet, testar om det är samma som användarens lösenord
         //om så är fallet så stämde lösenordet...
@@ -128,6 +138,18 @@ class UserModel extends Repository{
         }
     }
 
+    /**
+     * @param $password string
+     * @param $repeatPass string
+     * @param $username string
+     * @return bool
+     * @throws PasswordDontMatchException
+     * @throws UsernameToShortException
+     * @throws UsernameToLongException
+     * @throws UsernameAndPasswordToShortException
+     * @throws UsernameContainsInvalidCharactersException
+     * @throws PasswordToShortException
+     */
     public function registerAuthentication($password, $repeatPass, $username){
         if(mb_strlen($username) < 3 && mb_strlen($password) < 6 && mb_strlen($repeatPass) <6){
             throw new UsernameAndPasswordToShortException();
@@ -151,6 +173,12 @@ class UserModel extends Repository{
         return true;
     }
 
+    /**
+     * @param $username string
+     * @param $password string
+     * @param $userAgent string
+     * @return bool
+     */
     public function validateLogin($username, $password, $userAgent){
         $sql = "SELECT * FROM $this->dbTable WHERE " . self::$name . " = ?";
         $params = array($username);
@@ -173,6 +201,9 @@ class UserModel extends Repository{
         return $this->authenticatedUser;
     }
 
+    /**
+     * @param User $user
+     */
     public function addUser(User $user){
         try{
             $sql = "INSERT INTO $this->dbTable (" . self::$name . ", " . self::$pass . ") VALUES (?, ?)";
@@ -186,6 +217,10 @@ class UserModel extends Repository{
         }
     }
 
+    /**
+     * @param $username string
+     * @return bool
+     */
     public function UserAlreadyExist($username){
         try{
             $sql = "SELECT * FROM $this->dbTable WHERE " . self::$name . " = ?";

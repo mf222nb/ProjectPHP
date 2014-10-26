@@ -22,6 +22,9 @@ class PostRepository extends Repository{
         $this->postList = array();
     }
 
+    /**
+     * @param Post $post
+     */
     public function addPost(Post $post){
         try{
             $sql = "INSERT INTO $this->dbTable (" . self::$content . ", " . self::$threadId . ", " . self::$user . " ,". self::$time ." ) VALUES (?, ?, ?, ?)";
@@ -35,6 +38,10 @@ class PostRepository extends Repository{
         }
     }
 
+    /**
+     * @param $id string
+     * @return array
+     */
     public function getThreadPost($id){
         try{
             $sql = "SELECT * FROM $this->dbTable WHERE ". self::$threadId ." = ?";
@@ -64,6 +71,10 @@ class PostRepository extends Repository{
         }
     }
 
+    /**
+     * @param $id string
+     * @return array
+     */
     public function getSinglePost($id){
         try{
             $sql = "SELECT * FROM $this->dbTable WHERE ". self::$postId ." = ?";
@@ -81,6 +92,10 @@ class PostRepository extends Repository{
         }
     }
 
+    /**
+     * @param $id string
+     * @param $username string
+     */
     public function deletePost($id, $username){
         if($username === "Admin"){
             try{
@@ -108,6 +123,9 @@ class PostRepository extends Repository{
         }
     }
 
+    /**
+     * @param $threadId string
+     */
     public function deleteAllPostsFromThread($threadId){
         try{
             $sql = "DELETE FROM $this->dbTable WHERE ". self::$threadId ." = ?";
@@ -121,6 +139,11 @@ class PostRepository extends Repository{
         }
     }
 
+    /**
+     * @param $content string
+     * @param $id string
+     * @param $time int
+     */
     public function updatePost($content, $id, $time){
         try{
             $sql = "UPDATE $this->dbTable SET ". self::$content ." = ?, " . self::$time . " = ? WHERE ". self::$postId." = ?";
@@ -134,6 +157,10 @@ class PostRepository extends Repository{
         }
     }
 
+    /**
+     * @param $content string
+     * @return bool
+     */
     public function fieldAreEmpty($content){
         if(empty($content)){
             return true;

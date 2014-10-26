@@ -25,6 +25,10 @@ class ThreadRepository extends Repository{
         $this->threadList = array();
     }
 
+    /**
+     * @param Thread $thread
+     * @return string
+     */
     public function addThread(Thread $thread){
         try{
             $sql = "INSERT INTO $this->dbTable (" . self::$name . ", " . self::$user . ") VALUES (?, ?)";
@@ -40,6 +44,10 @@ class ThreadRepository extends Repository{
         }
     }
 
+    /**
+     * @param $threadId string
+     * @return array
+     */
     public function getSingleThread($threadId){
         try{
             $sql = "SELECT * FROM $this->dbTable WHERE ".self::$threadId." = ?";
@@ -57,6 +65,7 @@ class ThreadRepository extends Repository{
         }
     }
 
+    //Hämtar alla trådar som har ett inlägg kopplat till sig och lägger den tråden med senaste inlägget först
     public function getAllThreads(){
         try{
             $sql = "SELECT * FROM $this->dbTable INNER JOIN (SELECT $this->dbTable2.".self::$threadId.", MAX(".self::$time.")
@@ -87,6 +96,10 @@ class ThreadRepository extends Repository{
         }
     }
 
+    /**
+     * @param $name string
+     * @param $threadId string
+     */
     public function updateThread($name, $threadId){
         try{
             $sql = "UPDATE $this->dbTable SET ".self::$name." = ? WHERE ".self::$threadId." = ?";
@@ -100,6 +113,9 @@ class ThreadRepository extends Repository{
         }
     }
 
+    /**
+     * @param $threadId string
+     */
     public function deleteThread($threadId){
         try{
             $sql = "DELETE FROM $this->dbTable WHERE ".self::$threadId." = ?";
@@ -113,6 +129,11 @@ class ThreadRepository extends Repository{
         }
     }
 
+    /**
+     * @param $threadName string
+     * @param $content string
+     * @return bool
+     */
     public function fieldsAreEmpty($threadName, $content){
         if(empty($threadName) & empty($content)){
             return true;
@@ -126,6 +147,10 @@ class ThreadRepository extends Repository{
         return false;
     }
 
+    /**
+     * @param $threadName string
+     * @return bool
+     */
     public function invalidLength($threadName){
         if(mb_strlen($threadName) > 100){
             return true;
@@ -133,6 +158,10 @@ class ThreadRepository extends Repository{
         return false;
     }
 
+    /**
+     * @param $threadName string
+     * @return bool
+     */
     public function fieldAreEmpty($threadName){
         if(empty($threadName)){
             return true;

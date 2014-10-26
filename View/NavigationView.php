@@ -13,11 +13,11 @@ class NavigationView{
     }
 
     public function getLoggedInUrl(){
-        return $url = "?login&loggedin";
+        return $url = "?login&amp;loggedin";
     }
 
     public function getLoggedOutUrl(){
-        return $url = "?login&signout";
+        return $url = "?login&amp;signout";
     }
 
     public function getLoginUrl(){

@@ -6,7 +6,7 @@ class CookieStorage{
     private $message;
     private $cookieTime;
 
-    //Sparar ner värdet från $randomString till kakan.
+    //Sparar ner användarnamn och krypterat lösenord i två olika kakor
     public function save($string, $password){
         $this->cookieTime = time()+3600*24*7;
         setcookie($this->cookieNameUserName, $string, $this->cookieTime);
