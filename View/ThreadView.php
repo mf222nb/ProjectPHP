@@ -78,7 +78,7 @@ class ThreadView{
                 $delete = "";
                 $update = "";
             }
-            $html .= "<div class='PostDiv'>". $post->getContent() ." <div><div class='buttons'>$update $delete</div> <div class='UserDiv'>Created by: " . $post->getUser() . "</div> <div class='CreatedDiv'>Created: ". gmdate('Y-m-d\T H:i', $post->getTime()) ."</div></div></div>";
+            $html .= "<div class='PostDiv'><div class='postContent'><p>". $post->getContent() ."<p></div><div><div class='buttons'>$update $delete</div> <div class='UserDiv'>Created by: " . $post->getUser() . "</div> <div class='CreatedDiv'>Created: ". gmdate('Y-m-d\T H:i', $post->getTime()) ."</div></div></div>";
         }
         if($authenticated === true){
             $side = "<header>
@@ -128,6 +128,7 @@ class ThreadView{
         }
     }
 
+    //Meddelanden
     public function createThreadMessage(){
         return "<p class='success'>New thread and post was created</p>";
     }

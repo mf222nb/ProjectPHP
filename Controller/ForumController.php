@@ -68,6 +68,7 @@ class ForumController{
             return $this->registerController->doControl();
         }
 
+        //Tittar om man har tryckt på "New thread"
         if($this->forumView->userPressedNewThread()){
             return $this->threadView->newThreadView($loginUrl);
         }
@@ -135,6 +136,7 @@ class ForumController{
             }
         }
 
+        //Tittar om man har tryckt på en tråd
         if($this->navigationView->userPressedThread()){
             $urlPath = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($urlPath);
@@ -143,6 +145,7 @@ class ForumController{
             return $this->threadView->showThreadPosts($posts, $loginUrl, $indexUrl, $authenticated, $username);
         }
 
+        //Tittar om man har tryckt på "New thread"
         if($this->threadView->userPressedCreatePost()){
             $urlPath = $this->forumView->getUrl();
             $id = $this->forumView->getThreadId($urlPath);
