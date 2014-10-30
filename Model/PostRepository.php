@@ -147,7 +147,7 @@ class PostRepository extends Repository{
     public function updatePost($content, $id, $time){
         try{
             $sql = "UPDATE $this->dbTable SET ". self::$content ." = ?, " . self::$time . " = ? WHERE ". self::$postId." = ?";
-            $params = array($content, $id, $time);
+            $params = array($content, $time, $id);
 
             $query = $this->db->prepare($sql);
             $query->execute($params);
